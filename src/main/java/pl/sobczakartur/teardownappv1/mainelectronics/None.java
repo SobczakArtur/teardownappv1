@@ -14,7 +14,7 @@ public class None {
 //    private Technology metalLayers;
 //    private Double thickness;
 //    private double weight;
-//    private SubstrateTestCost substrateTestCost;
+//    private SubstrateCost substrateTestCost;
 
 }
 
