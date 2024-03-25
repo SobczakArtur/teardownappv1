@@ -1,7 +1,7 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
 public class Assembly {
-    // TODO Change this class to DTO object ???
+    // TODO Change this class to DTO object or builder design pattern???
     private String assemblyName;
     private String substrateMarking;
     private String manufacturer;

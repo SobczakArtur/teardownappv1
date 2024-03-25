@@ -12,12 +12,26 @@ public enum Technology {
     FOUR_LAYER_F("4 Layer F", "Poly", 4),
     FOUR_LAYER_FV("4 Layer FwV", "Poly", 4);
 
+    private final String description;
+    private final String coreMaterial;
     private final int metalLayers;
 
 
     Technology(String description, String coreMaterial, int metalLayers) {
+        this.description = description;
+        this.coreMaterial = coreMaterial;
         this.metalLayers = metalLayers;
     }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCoreMaterial() {
+        return coreMaterial;
+    }
+
 
     public int getMetalLayers() {
         return metalLayers;
