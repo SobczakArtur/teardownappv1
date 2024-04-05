@@ -13,9 +13,12 @@ public class SubstrateCost {
 
     public static Double substrateCost(Double complexity, Technology technology){
 
-
+        if(complexity <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0){
+            throw new ArithmeticException("You can not divide or multiply by zero");
+        }
                return technology.getMetalLayers() * complexity / technology.getFactor();
-
+    }
+}
 
 
 //        List<Technology> technologies = Arrays.asList(technology);
@@ -23,5 +26,3 @@ public class SubstrateCost {
 //        technologyStream
 //                .map(Technology::getMetalLayers)
 //                .collect(Collectors.toList());
-    }
-}

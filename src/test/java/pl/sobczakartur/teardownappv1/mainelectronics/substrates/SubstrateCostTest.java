@@ -13,20 +13,23 @@ public class SubstrateCostTest {
     private SubstrateCost substrateCost;
 
     @Test
-    void computingSubstrateCost(){
+    void substrateCost_onlyPositiveNumbers_positiveResult(){
 
         //given
         substrateCost = new SubstrateCost(null, null);
-        Technology itemToTest = createMock();
+        Technology itemToTest = createMockForPositiveNumbers();
 
         //when
         Double costResult = substrateCost.substrateCost(.4, itemToTest);
 
         //then
         assertEquals(costResult, 1.1347517730496455);
+
+
+
     }
 
-    private Technology createMock (){
+    private Technology createMockForPositiveNumbers (){
         Technology technology = Mockito.mock(Technology.class);
 
         Mockito.when(technology.getMetalLayers()).thenReturn(4);
