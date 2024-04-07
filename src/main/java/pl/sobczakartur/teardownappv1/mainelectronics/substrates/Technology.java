@@ -29,11 +29,11 @@ public enum Technology {
 
     private final String description;
     private final String coreMaterial;
-    private final int metalLayers;
-    private final double factor;
+    private final Integer metalLayers;
+    private final Double factor;
 
 
-    Technology(String description, String coreMaterial, int metalLayers, double factor) {
+    Technology(String description, String coreMaterial, Integer metalLayers, Double factor) {
         this.description = description;
         this.coreMaterial = coreMaterial;
         this.metalLayers = metalLayers;
@@ -50,11 +50,11 @@ public enum Technology {
     }
 
 
-    public int getMetalLayers() {
+    public Integer getMetalLayers() {
         return metalLayers;
     }
 
-    public double getFactor() {
+    public Double getFactor() {
         return factor;
     }
 }

@@ -14,9 +14,12 @@ public class SubstrateCost {
     public static Double substrateCost(Double complexity, Technology technology){
 
         if(complexity <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0){
-            throw new ArithmeticException("You can not divide or multiply by zero");
+            throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
+        } else if (complexity == null || technology.getMetalLayers() == null || technology.getFactor() == null){
+            throw new NullPointerException("You can not provide null value");
         }
-               return technology.getMetalLayers() * complexity / technology.getFactor();
+
+            return technology.getMetalLayers() * complexity / technology.getFactor();
     }
 }
 
