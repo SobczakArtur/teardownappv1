@@ -1,25 +1,26 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class SubstrateCost {
 
-    private Double complexity;
-    private Technology technology;
+    private static Complexity complexity;
+    private static Technology technology;
 
 //    @Autowired
-    public SubstrateCost(Double complexity, Technology technology) {
+    public SubstrateCost(Complexity complexity, Technology technology) {
         this.complexity = complexity;
         this.technology = technology;
     }
 
-    public static Double substrateCost(Double complexity, Technology technology){
+    public static double substrateCost(Complexity complexity, Technology technology){
 
-        if(complexity <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0){
+        if(complexity.getComplValue() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0){
             throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
-        } else if (complexity == null || technology.getMetalLayers() == null || technology.getFactor() == null){
+        } else if (complexity.getComplValue() == null || technology.getMetalLayers() == null || technology.getFactor() == null){
             throw new NullPointerException("You can not provide null value");
         }
-
-            return technology.getMetalLayers() * complexity / technology.getFactor();
+            return technology.getMetalLayers() * complexity.getComplValue() / technology.getFactor();
     }
 }
 
