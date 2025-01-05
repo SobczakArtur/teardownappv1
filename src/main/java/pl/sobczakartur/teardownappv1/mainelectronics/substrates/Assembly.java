@@ -8,10 +8,10 @@ public class Assembly {
     private Technology technology;
     private Technology description;
     private Technology coreMaterial;
-    private Double area;
+    private double area;
     private Technology metalLayers;
     private Complexity complexity;
-    private Double thickness;
+    private double thickness;
     private double weight;
-    private SubstrateCost substrateCost;
+    private SubstrateTestCost substrateTestCost;
 }

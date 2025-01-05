@@ -9,7 +9,7 @@ public class TeardownV1Application {
 
 	public static void main(String[] args) {
 		run(TeardownV1Application.class, args);
-//		SubstrateCost substrateCost = new SubstrateCost(Complexity.MEDIUM, Technology.FOUR_LAYER_B);
+//		SubstrateTestCost substrateCost = new SubstrateTestCost(Complexity.MEDIUM, Technology.FOUR_LAYER_B);
 
 	}
 }

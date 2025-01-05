@@ -21,7 +21,7 @@ public enum Technology {
     private final Double factor;
 
 
-    Technology(String description, String coreMaterial, Integer metalLayers, Double factor) {
+    Technology(String description, String coreMaterial, int metalLayers, double factor) {
         this.description = description;
         this.coreMaterial = coreMaterial;
         this.metalLayers = metalLayers;
