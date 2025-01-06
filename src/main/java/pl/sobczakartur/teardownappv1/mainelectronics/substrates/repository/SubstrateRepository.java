@@ -6,5 +6,4 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate
 
 @Repository
 public interface SubstrateRepository extends JpaRepository<Substrate, Long> {
-
 }

@@ -3,6 +3,7 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 
+
 public class Area {
 
     private Substrate substrates;
