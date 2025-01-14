@@ -2,18 +2,18 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 //@Service
 public class SubstrateTestCost {
 
 
-    private final Complexity complexity;
-    private final Technology technology;
+    private final ComplexityEnum complexity;
+    private final TechnologyEnum technology;
     private final Area area;
 
 
     @Autowired
-    public SubstrateTestCost(Complexity complexity, Technology technology, Area area) {
+    public SubstrateTestCost(ComplexityEnum complexity, TechnologyEnum technology, Area area) {
         this.complexity = complexity;
         this.technology = technology;
         this.area = area;
@@ -21,17 +21,17 @@ public class SubstrateTestCost {
 
     public Double substrateCost() {
 
-        if (complexity.getComplValue() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
+        if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
             throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
         }
-        return technology.getMetalLayers() * complexity.getComplValue() / technology.getFactor() + (area.getArea() / 6);
+        return technology.getMetalLayers() * complexity.getCompl() / technology.getFactor() + (area.getArea() / 6);
     }
 
     public Double testCost() {
-        if (complexity.getComplValue() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
+        if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
             throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
         }
-        return technology.getFactor() * complexity.getComplValue() / technology.getMetalLayers() + (area.getArea() / 6);
+        return technology.getFactor() * complexity.getCompl() / technology.getMetalLayers() + (area.getArea() / 6);
     }
 }
 
@@ -51,8 +51,8 @@ public class SubstrateTestCost {
 //        }
 
 
-//        List<Technology> technologies = Arrays.asList(technology);
-//        Stream<Technology> technologyStream = technologies.stream();
+//        List<TechnologyEnum> technologies = Arrays.asList(technology);
+//        Stream<TechnologyEnum> technologyStream = technologies.stream();
 //        technologyStream
-//                .map(Technology::getMetalLayers)
+//                .map(TechnologyEnum::getMetalLayers)
 //                .collect(Collectors.toList());

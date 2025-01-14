@@ -1,20 +1,18 @@
 package pl.sobczakartur.teardownappv1.mainelectronics;
 
-import java.util.function.ToDoubleBiFunction;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
+
 
 public class None {
-            //TODO Delete this class later
-//    private String assemblyName;
-//    private String substrateMarking;
-//    private String manufacturer;
-//    private Technology technology;
-//    private Technology description;
-//    private String coreMaterial;
-//    private Double area;
-//    private Technology metalLayers;
-//    private Double thickness;
-//    private double weight;
-//    private SubstrateTestCost substrateTestCost;
+
+    public void setTechnologyValues(TechnologyEnum technology){
+        Substrate substrate = new Substrate();
+        substrate.setTechnologyName(technology.getName());
+        substrate.setTechnologyDescription(technology.getDescription());
+        substrate.setTechnologyCoreMaterial(technology.getCoreMaterial());
+        substrate.setTechnologyMetalLayers(technology.getMetalLayers());
+    }
 
 }
 

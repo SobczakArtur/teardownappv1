@@ -2,9 +2,8 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.Complexity;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateTestCost;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.Technology;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 @Data
@@ -18,40 +17,50 @@ public class Substrate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long substrateId;
 
-
+    @NotNull
+    @Column(length = 255)
     private String assemblyName;
 
-
+    @NotNull
+    @Column(length = 255)
     private String substrateMarking;
 
-
+    @NotNull
+    @Column(length = 255)
     private String manufacturer;
 
+    @NotNull
+    @Column(length = 255)
+    private String technologyName; //TechnologyEnum
 
-    private Technology technology;
+    @NotNull
+    @Column(length = 255)
+    private String technologyDescription; //TechnologyEnum
 
+    @NotNull
+    @Column(length = 255)
+    private String technologyCoreMaterial;  //TechnologyEnum
 
-    private Technology description;
+    @PositiveOrZero
+    private Double area;
 
+    @PositiveOrZero
+    private Integer technologyMetalLayers;  //TechnologyEnum
 
-    private Technology coreMaterial;
+    @PositiveOrZero
+    private Double complexity;  //ComplexityEnum
 
+    @PositiveOrZero
+    private Double thickness;
 
-    private double area;
+    @PositiveOrZero
+    private Double weight;
 
+    @PositiveOrZero
+    private Double testCost;  //SubstrateTestCost
 
-    private Technology metalLayers;
+    @PositiveOrZero
+    private Double substrateCost;  //SubstrateTestCost
 
-
-    private Complexity complexity;
-
-
-    private double thickness;
-
-
-    private double weight;
-
-
-    private SubstrateTestCost substrateTestCost;
 
 }

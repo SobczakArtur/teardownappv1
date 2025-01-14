@@ -5,12 +5,12 @@ public class Assembly {
     private String assemblyName;
     private String substrateMarking;
     private String manufacturer;
-    private Technology technology;
-    private Technology description;
-    private Technology coreMaterial;
+    private TechnologyEnum technology;
+    private TechnologyEnum description;
+    private TechnologyEnum coreMaterial;
     private double area;
-    private Technology metalLayers;
-    private Complexity complexity;
+    private TechnologyEnum metalLayers;
+    private ComplexityEnum complexity;
     private double thickness;
     private double weight;
     private SubstrateTestCost substrateTestCost;

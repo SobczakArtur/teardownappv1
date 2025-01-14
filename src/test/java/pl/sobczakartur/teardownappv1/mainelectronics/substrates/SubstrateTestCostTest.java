@@ -16,8 +16,8 @@ public class SubstrateTestCostTest {
     void substrateCost_nullNumber_exceptionResult(){
 
         //given
-        Technology technology = createMockTech(4, null);
-        Complexity complexity = createMockCompl(0.4);
+        TechnologyEnum technology = createMockTech(4, null);
+        ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -29,8 +29,8 @@ public class SubstrateTestCostTest {
     void substrateCost_zeroNumber_exceptionResult(){
 
         //given
-        Technology technology = createMockTech(0, 1.41);
-        Complexity complexity = createMockCompl(0.4);
+        TechnologyEnum technology = createMockTech(0, 1.41);
+        ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -42,8 +42,8 @@ public class SubstrateTestCostTest {
      void substrateCost_negativeNumber_exceptionResult(){
 
         //given
-        Technology technology = createMockTech(-4, 1.41);
-        Complexity complexity = createMockCompl(0.4);
+        TechnologyEnum technology = createMockTech(-4, 1.41);
+        ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -57,8 +57,8 @@ public class SubstrateTestCostTest {
     void substrateCost_positiveNumber_positiveResult(){
 
         //given
-        Technology technology = createMockTech(4, 1.41);
-        Complexity complexity = createMockCompl(0.4);
+        TechnologyEnum technology = createMockTech(4, 1.41);
+        ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -73,8 +73,8 @@ public class SubstrateTestCostTest {
     void testCost_nullNumber_exceptionResult(){
 
         //given
-        Technology technology = createMockTech(4, 1.41);
-        Complexity complexity = createMockCompl(null);
+        TechnologyEnum technology = createMockTech(4, 1.41);
+        ComplexityEnum complexity = createMockCompl(null);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -86,8 +86,8 @@ public class SubstrateTestCostTest {
     void testCost_zeroNumber_exceptionResult(){
 
         //given
-        Technology technology = createMockTech(0, 1.41);
-        Complexity complexity = createMockCompl(0.4);
+        TechnologyEnum technology = createMockTech(0, 1.41);
+        ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -99,8 +99,8 @@ public class SubstrateTestCostTest {
     void testCost_negativeNumber_exceptionResult(){
 
         //given
-        Technology technology = createMockTech(-4, 1.41);
-        Complexity complexity = createMockCompl(0.4);
+        TechnologyEnum technology = createMockTech(-4, 1.41);
+        ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -113,8 +113,8 @@ public class SubstrateTestCostTest {
     void testCost_positiveNumber_positiveResult(){
 
         //given
-        Technology technology = createMockTech(4, 1.41);
-        Complexity complexity = createMockCompl(0.4);
+        TechnologyEnum technology = createMockTech(4, 1.41);
+        ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
@@ -127,16 +127,16 @@ public class SubstrateTestCostTest {
 
 
 
-    private Technology createMockTech (Integer metalLayers, Double factor){
-        Technology technology = Mockito.mock(Technology.class);
+    private TechnologyEnum createMockTech (Integer metalLayers, Double factor){
+        TechnologyEnum technology = Mockito.mock(TechnologyEnum.class);
         Mockito.when(technology.getMetalLayers()).thenReturn(metalLayers);
         Mockito.when(technology.getFactor()).thenReturn(factor);
         return technology;
     }
 
-    private Complexity createMockCompl (Double complValue){
-        Complexity complexity = Mockito.mock(Complexity.class);
-        Mockito.when(complexity.getComplValue()).thenReturn(complValue);
+    private ComplexityEnum createMockCompl (Double compl){
+        ComplexityEnum complexity = Mockito.mock(ComplexityEnum.class);
+        Mockito.when(complexity.getCompl()).thenReturn(compl);
         return complexity;
     }
 
@@ -155,8 +155,8 @@ public class SubstrateTestCostTest {
 //    void substrateCost_nullNumber_nullResult(){
 //
 //        //given
-//        Technology technology = createMockTech(4, 1.41);
-//        Complexity complexity = createMockCompl(null);
+//        TechnologyEnum technology = createMockTech(4, 1.41);
+//        ComplexityEnum complexity = createMockCompl(null);
 //        substrateTestCost = new SubstrateTestCost(complexity, technology);
 //
 //        //when
