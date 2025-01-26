@@ -9,7 +9,7 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class SubstrateServiceImpl implements SubstrateService {
@@ -32,8 +32,8 @@ public class SubstrateServiceImpl implements SubstrateService {
         }
 
         @Override
-        public Substrate updateSubstrate(SubstrateTestCost substrateTestCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum, Substrate substrate, Long substrateId) {
-
+        public Substrate updateSubstrate(SubstrateTestCost substrateTestCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum,
+                                         Substrate substrate, Long substrateId) {
 
             Substrate substrDB = substrateRepository.findById(substrateId).get();
 
@@ -50,8 +50,6 @@ public class SubstrateServiceImpl implements SubstrateService {
                 substrDB.setWeight(substrate.getWeight());
                 substrDB.setTestCost(substrateTestCost.testCost());
                 substrDB.setSubstrateCost(substrateTestCost.substrateCost());
-
-
 
             return substrateRepository.save(substrDB);
         }

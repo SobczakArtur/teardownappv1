@@ -1,15 +1,19 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
 public class SubstrateTestCostTest {
 
+    @Autowired
     private SubstrateTestCost substrateTestCost;
 
     @Test
@@ -19,6 +23,8 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(4, null);
         ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
+
+        //when
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
         //then
@@ -32,6 +38,8 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(0, 1.41);
         ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
+
+        //when
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
         //then
@@ -45,6 +53,8 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(-4, 1.41);
         ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
+
+        //when
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
         //then
@@ -76,6 +86,8 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(4, 1.41);
         ComplexityEnum complexity = createMockCompl(null);
         Area area = createMockArea(2.22);
+
+        //when
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
         //then
@@ -89,6 +101,8 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(0, 1.41);
         ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
+
+        //when
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
         //then
@@ -102,6 +116,8 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(-4, 1.41);
         ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
+
+        //when
         substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
         //then
@@ -116,9 +132,9 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(4, 1.41);
         ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
 
         //when
+        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
         Double costResult = substrateTestCost.testCost();
 
         //then

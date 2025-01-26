@@ -1,7 +1,6 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
-import org.springframework.stereotype.Component;
-    @Component
+
     public enum ComplexityEnum {
         SIMPLE(0.1),
         LOW(0.3),

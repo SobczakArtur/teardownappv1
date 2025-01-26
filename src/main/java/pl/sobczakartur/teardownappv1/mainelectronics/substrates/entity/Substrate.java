@@ -1,9 +1,15 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+
 
 @Entity
 @Data
@@ -41,16 +47,16 @@ public class Substrate {
     @Column(length = 255)
     private String technologyCoreMaterial;  //TechnologyEnum
 
-    @PositiveOrZero
+    @Positive
     private Double area;
 
-    @PositiveOrZero
+    @Positive
     private Integer technologyMetalLayers;  //TechnologyEnum
 
-    @PositiveOrZero
+    @Positive
     private Double complexity;  //ComplexityEnum
 
-    @PositiveOrZero
+    @Positive
     private Double thickness;
 
     @PositiveOrZero

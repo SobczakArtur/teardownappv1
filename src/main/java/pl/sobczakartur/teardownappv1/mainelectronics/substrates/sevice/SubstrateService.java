@@ -13,7 +13,8 @@ public interface SubstrateService {
 
     List<Substrate> fetchAllSubstrate();
 
-    Substrate updateSubstrate(SubstrateTestCost substrateTestCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum, Substrate substrate, Long substrateId);
+    Substrate updateSubstrate(SubstrateTestCost substrateTestCost, ComplexityEnum complexityEnum,
+                              TechnologyEnum technologyEnum, Substrate substrate, Long substrateId);
 
     void deleteSubstrateById(Long substrateId);
 }

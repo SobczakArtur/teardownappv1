@@ -1,9 +1,9 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-//@Service
+@Service
 public class SubstrateTestCost {
 
 
@@ -21,16 +21,16 @@ public class SubstrateTestCost {
 
     public Double substrateCost() {
 
-        if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
-            throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
-        }
+//        if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
+//            throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
+//        }
         return technology.getMetalLayers() * complexity.getCompl() / technology.getFactor() + (area.getArea() / 6);
     }
 
     public Double testCost() {
-        if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
-            throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
-        }
+//        if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
+//            throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
+//        }
         return technology.getFactor() * complexity.getCompl() / technology.getMetalLayers() + (area.getArea() / 6);
     }
 }

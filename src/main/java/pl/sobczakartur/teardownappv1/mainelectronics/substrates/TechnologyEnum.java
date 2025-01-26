@@ -1,6 +1,5 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
-//@Component
 public enum TechnologyEnum {
     TWO_LAYER_C(" TWO_LAYER_C", "2 Layer C", "R4F4", 2, 1.64),
     TWO_LAYER_F(" TWO_LAYER_F", "2 Layer F", "Poly", 2, 3.14),
