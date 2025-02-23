@@ -3,18 +3,18 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-@SpringBootTest
-public class SubstrateTestCostTest {
 
-    @Autowired
-    private SubstrateTestCost substrateTestCost;
+public class SubstrateCostTest {
+
+//    @Autowired
+    private SubstrateCost substrateCost;
+
+
 
     @Test
     void substrateCost_nullNumber_exceptionResult(){
@@ -25,10 +25,10 @@ public class SubstrateTestCostTest {
         Area area = createMockArea(2.22);
 
         //when
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
+        substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(NullPointerException.class, substrateTestCost::substrateCost);
+        assertThrows(NullPointerException.class, substrateCost::substrateCost);
     }
 
     @Test
@@ -40,14 +40,14 @@ public class SubstrateTestCostTest {
         Area area = createMockArea(2.22);
 
         //when
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
+        substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateTestCost::substrateCost);
+        assertThrows(ArithmeticException.class, substrateCost::substrateCost);
     }
 
     @Test
-     void substrateCost_negativeNumber_exceptionResult(){
+    void substrateCost_negativeNumber_exceptionResult(){
 
         //given
         TechnologyEnum technology = createMockTech(-4, 1.41);
@@ -55,10 +55,10 @@ public class SubstrateTestCostTest {
         Area area = createMockArea(2.22);
 
         //when
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
+        substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateTestCost::substrateCost);
+        assertThrows(ArithmeticException.class, substrateCost::substrateCost);
     }
 
 
@@ -70,10 +70,10 @@ public class SubstrateTestCostTest {
         TechnologyEnum technology = createMockTech(4, 1.41);
         ComplexityEnum complexity = createMockCompl(0.4);
         Area area = createMockArea(2.22);
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
+        substrateCost = new SubstrateCost(technology, complexity, area);
 
         //when
-        Double costResult = substrateTestCost.substrateCost();
+        Double costResult = substrateCost.substrateCost();
 
         //then
         assertEquals(costResult, 1.5047517730496456);
@@ -88,10 +88,10 @@ public class SubstrateTestCostTest {
         Area area = createMockArea(2.22);
 
         //when
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
+        substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(NullPointerException.class, substrateTestCost::testCost);
+        assertThrows(NullPointerException.class, substrateCost::testCost);
     }
 
     @Test
@@ -103,10 +103,10 @@ public class SubstrateTestCostTest {
         Area area = createMockArea(2.22);
 
         //when
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
+        substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateTestCost::testCost);
+        assertThrows(ArithmeticException.class, substrateCost::testCost);
     }
 
     @Test
@@ -118,10 +118,10 @@ public class SubstrateTestCostTest {
         Area area = createMockArea(2.22);
 
         //when
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
+        substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateTestCost::testCost);
+        assertThrows(ArithmeticException.class, substrateCost::testCost);
     }
 
 
@@ -134,8 +134,8 @@ public class SubstrateTestCostTest {
         Area area = createMockArea(2.22);
 
         //when
-        substrateTestCost = new SubstrateTestCost(complexity, technology, area);
-        Double costResult = substrateTestCost.testCost();
+        substrateCost = new SubstrateCost(technology, complexity, area);
+        Double costResult = substrateCost.testCost();
 
         //then
         assertEquals(costResult, 0.511);
@@ -143,42 +143,23 @@ public class SubstrateTestCostTest {
 
 
 
-    private TechnologyEnum createMockTech (Integer metalLayers, Double factor){
+    TechnologyEnum createMockTech (Integer metalLayers, Double factor){
         TechnologyEnum technology = Mockito.mock(TechnologyEnum.class);
         Mockito.when(technology.getMetalLayers()).thenReturn(metalLayers);
         Mockito.when(technology.getFactor()).thenReturn(factor);
         return technology;
     }
 
-    private ComplexityEnum createMockCompl (Double compl){
+    ComplexityEnum createMockCompl (Double compl){
         ComplexityEnum complexity = Mockito.mock(ComplexityEnum.class);
         Mockito.when(complexity.getCompl()).thenReturn(compl);
         return complexity;
     }
 
-    private Area createMockArea (Double areaValue){
+    Area createMockArea (Double areaValue){
         Area area = Mockito.mock(Area.class);
         Mockito.when(area.getArea()).thenReturn(areaValue);
         return area;
     }
 
 }
-
-
-
-
-//    @Test
-//    void substrateCost_nullNumber_nullResult(){
-//
-//        //given
-//        TechnologyEnum technology = createMockTech(4, 1.41);
-//        ComplexityEnum complexity = createMockCompl(null);
-//        substrateTestCost = new SubstrateTestCost(complexity, technology);
-//
-//        //when
-//        Double costResult = SubstrateTestCost.substrateTestCost();
-//
-//        //then
-////        assertThrows(NullPointerException.class, SubstrateTestCost::substrateTestCost);
-//        assertNull(substrateTestCost);
-//    }

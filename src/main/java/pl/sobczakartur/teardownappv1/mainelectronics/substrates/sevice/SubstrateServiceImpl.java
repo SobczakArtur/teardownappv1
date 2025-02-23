@@ -3,39 +3,47 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.ComplexityEnum;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateTestCost;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateCost;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class SubstrateServiceImpl implements SubstrateService {
 
-    private SubstrateRepository substrateRepository;
+        @Autowired
+        private SubstrateRepository substrateRepository;
 
-    @Autowired
-    public SubstrateServiceImpl(SubstrateRepository substrateRepository) {
-        this.substrateRepository = substrateRepository;
-    }
+
 
         @Override
-        public Substrate saveSubstrate(Substrate substrate) {
-            return substrateRepository.save(substrate);
-        }
-
-        @Override
-        public List<Substrate> fetchAllSubstrate() {
+        public List<Substrate> getAllSubstrate() {
             return substrateRepository.findAll();
         }
 
         @Override
-        public Substrate updateSubstrate(SubstrateTestCost substrateTestCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum,
+        public Optional<Substrate> getSubstrateById(Long substrateId){
+            return substrateRepository.findById(substrateId);
+        }
+
+        @Override
+        public Optional<Substrate> addSubstrate(Substrate substrate) {
+            return Optional.of(substrateRepository.save(substrate));
+        }
+
+
+        @Override
+        public Optional<Substrate> updateSubstrate(SubstrateCost substrateCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum,
                                          Substrate substrate, Long substrateId) {
 
-            Substrate substrDB = substrateRepository.findById(substrateId).get();
+
+            boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
+            if (substrateIsPresent) {
+                Substrate substrDB = substrateRepository.findById(substrateId).get();
 
                 substrDB.setAssemblyName(substrate.getAssemblyName());
                 substrDB.setSubstrateMarking(substrate.getSubstrateMarking());
@@ -48,43 +56,20 @@ public class SubstrateServiceImpl implements SubstrateService {
                 substrDB.setComplexity(complexityEnum.getCompl());
                 substrDB.setThickness(substrate.getThickness());
                 substrDB.setWeight(substrate.getWeight());
-                substrDB.setTestCost(substrateTestCost.testCost());
-                substrDB.setSubstrateCost(substrateTestCost.substrateCost());
+                substrDB.setTestCost(substrateCost.testCost());
+                substrDB.setSubstrateCost(substrateCost.substrateCost());
 
-            return substrateRepository.save(substrDB);
+                return Optional.of(substrateRepository.save(substrDB));
+            }
+            return Optional.empty();
         }
 
         @Override
-        public void deleteSubstrateById(Long substrateId) {
+        public Optional<Substrate> removeSubstrateById(Long substrateId) {
+            Optional<Substrate> substrateToRemove = getSubstrateById(substrateId);
             substrateRepository.deleteById(substrateId);
+            return substrateToRemove;
         }
 }
 
 
-//        if (Optional.ofNullable(substrate.getAssemblyName()).orElse("").equals("")){
-//                substrDB.setAssemblyName(substrate.getAssemblyName());
-//                }
-//
-//                if (Optional.ofNullable(substrate.getSubstrateMarking()).orElse("").equals("")){
-//                substrDB.setSubstrateMarking(substrate.getSubstrateMarking());
-//                }
-//
-//                if (Optional.ofNullable(substrate.getManufacturer()).orElse("").equals("")) {
-//                substrDB.setManufacturer(substrate.getManufacturer());
-//                }
-//
-//                if (Optional.ofNullable(substrate.getArea()).orElse(0.0) == 0.0){
-//                substrDB.setArea(substrate.getArea());
-//                }
-//
-//                if (Optional.ofNullable(substrate.getThickness()).orElse(0.0) == 0.0){
-//                substrDB.setThickness(substrate.getThickness());
-//                }
-//
-//                if (Optional.ofNullable(substrate.getWeight()).orElse(0.0) == 0.0){
-//                substrDB.setWeight(substrate.getWeight());
-//                }
-//
-//                if (Optional.of(technology = TechnologyEnum.valueOf("TWO_LAYER_C").equals("")){
-//                substrDB.setWeight(substrate.getWeight());
-//                }

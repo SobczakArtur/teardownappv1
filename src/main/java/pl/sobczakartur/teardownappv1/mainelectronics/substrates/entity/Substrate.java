@@ -2,21 +2,18 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "substrates")
+@Table(name = "substrate")
 public class Substrate {
 
     @Id
@@ -67,6 +64,27 @@ public class Substrate {
 
     @PositiveOrZero
     private Double substrateCost;  //SubstrateTestCost
+
+
+
+//    POSTMAN
+//[
+//    {
+//        "assemblyName": "120 Hz Display",
+//            "substrateMarking": "hhdkdjj",
+//            "manufacturer": "Techinsight",
+//            "technologyName": "TWO_LAYER_F",
+//            "technologyDescription": "2 Layer F",
+//            "technologyCoreMaterial": "Poly",
+//            "area": "2.9",
+//            "technologyMetalLayers": "2",
+//            "complexity": "0.3",
+//            "thickness": "1.1",
+//            "weight": "3.0",
+//            "testCost": "5.7",
+//            "substrateCost": "3.5"
+//    }
+//]
 
 
 }
