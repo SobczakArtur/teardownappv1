@@ -1,7 +1,9 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Getter
 public class SubstrateCost {
 
     private final TechnologyEnum technology;
@@ -21,13 +23,13 @@ public class SubstrateCost {
         if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
             throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
         }
-        return technology.getMetalLayers() * complexity.getCompl() / technology.getFactor() + (area.getArea() / 6);
+        return technology.getMetalLayers() * complexity.getCompl() / technology.getFactor() + (area.getAreaValue() / 6);
     }
 
     public Double testCost() {
         if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
             throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
         }
-        return technology.getFactor() * complexity.getCompl() / technology.getMetalLayers() + (area.getArea() / 6);
+        return technology.getFactor() * complexity.getCompl() / technology.getMetalLayers() + (area.getAreaValue() / 6);
     }
 }

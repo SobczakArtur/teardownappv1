@@ -38,8 +38,7 @@ public class SubstrateServiceImpl implements SubstrateService {
 
         @Override
         public Optional<Substrate> updateSubstrate(SubstrateCost substrateCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum,
-                                         Substrate substrate, Long substrateId) {
-
+                                                   Substrate substrate, Long substrateId) {
 
             boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
             if (substrateIsPresent) {
@@ -64,12 +63,43 @@ public class SubstrateServiceImpl implements SubstrateService {
             return Optional.empty();
         }
 
-        @Override
+    @Override
+    public Optional<Substrate> partiallyUpdateSubstrate(SubstrateCost updatedSubstrateCost, ComplexityEnum updatedComplexity, TechnologyEnum updatedTechnology,
+                                                        Substrate updatedSubstrate, Long substrateId) {
+
+        boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
+        if (substrateIsPresent) {
+            Substrate substrDB = substrateRepository.findById(substrateId).get();
+
+            if (updatedSubstrate.getAssemblyName() != null) substrDB.setAssemblyName(updatedSubstrate.getAssemblyName());
+            if (updatedSubstrate.getSubstrateMarking() != null) substrDB.setSubstrateMarking(updatedSubstrate.getSubstrateMarking());
+            if (updatedSubstrate.getManufacturer() != null) substrDB.setManufacturer(updatedSubstrate.getManufacturer());
+            if (updatedTechnology.getName() != null) substrDB.setTechnologyName(updatedTechnology.getName());
+            if (updatedTechnology.getDescription() != null) substrDB.setTechnologyDescription(updatedTechnology.getDescription());
+            if (updatedTechnology.getCoreMaterial() != null) substrDB.setTechnologyCoreMaterial(updatedTechnology.getCoreMaterial());
+            if (updatedSubstrate.getArea() > 0) substrDB.setArea(updatedSubstrate.getArea());
+            if (updatedTechnology.getMetalLayers() > 0) substrDB.setTechnologyMetalLayers(updatedTechnology.getMetalLayers());
+            if (updatedComplexity.getCompl() > 0) substrDB.setComplexity(updatedComplexity.getCompl());
+            if (updatedSubstrate.getThickness() > 0) substrDB.setThickness(updatedSubstrate.getThickness());
+            if (updatedSubstrate.getWeight() > 0) substrDB.setWeight(updatedSubstrate.getWeight());
+            if (updatedSubstrateCost.testCost() > 0) substrDB.setTestCost(updatedSubstrateCost.testCost());
+            if (updatedSubstrateCost.substrateCost() > 0) substrDB.setSubstrateCost(updatedSubstrateCost.substrateCost());
+
+            return Optional.of(substrateRepository.save(substrDB));
+        }
+        return Optional.empty();
+    }
+
+    @Override
         public Optional<Substrate> removeSubstrateById(Long substrateId) {
             Optional<Substrate> substrateToRemove = getSubstrateById(substrateId);
             substrateRepository.deleteById(substrateId);
             return substrateToRemove;
         }
 }
+
+
+
+
 
 

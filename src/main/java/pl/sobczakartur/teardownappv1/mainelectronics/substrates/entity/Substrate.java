@@ -5,14 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.Area;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.ComplexityEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateCost;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "substrate")
 public class Substrate {
 
@@ -34,24 +39,22 @@ public class Substrate {
 
     @NotNull
     @Column(length = 255)
-    private String technologyName; //TechnologyEnum
+    private TechnologyEnum technology; //TechnologyEnum
 
-    @NotNull
     @Column(length = 255)
-    private String technologyDescription; //TechnologyEnum
+    private String technologyDescription = technology.getDescription(); //TechnologyEnum
 
-    @NotNull
     @Column(length = 255)
-    private String technologyCoreMaterial;  //TechnologyEnum
+    private String technologyCoreMaterial = technology.getCoreMaterial();  //TechnologyEnum
 
     @Positive
-    private Double area;
+    private Area area;
 
     @Positive
-    private Integer technologyMetalLayers;  //TechnologyEnum
+    private Integer technologyMetalLayers = technology.getMetalLayers();  //TechnologyEnum
 
     @Positive
-    private Double complexity;  //ComplexityEnum
+    private ComplexityEnum complexity;  //ComplexityEnum
 
     @Positive
     private Double thickness;
@@ -59,18 +62,23 @@ public class Substrate {
     @PositiveOrZero
     private Double weight;
 
-    @PositiveOrZero
-    private Double testCost;  //SubstrateTestCost
+    @Transient
+    SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, area);
 
     @PositiveOrZero
-    private Double substrateCost;  //SubstrateTestCost
+    private Double testCost = substrateCostObject.testCost();  //SubstrateCost
+
+    @PositiveOrZero
+    private Double substrateCost = substrateCostObject.substrateCost();  //SubstrateCost
+
+
 
 
 
 //    POSTMAN
 //[
 //    {
-//        "assemblyName": "120 Hz Display",
+//            "assemblyName": "120 Hz Display",
 //            "substrateMarking": "hhdkdjj",
 //            "manufacturer": "Techinsight",
 //            "technologyName": "TWO_LAYER_F",

@@ -17,8 +17,11 @@ public interface SubstrateService {
 
     Optional<Substrate>  addSubstrate(Substrate substrate);
 
-    Optional<Substrate>  updateSubstrate(SubstrateCost substrateTestCost, ComplexityEnum complexityEnum,
-                              TechnologyEnum technologyEnum, Substrate substrate, Long substrateId);
+    Optional<Substrate>  updateSubstrate(SubstrateCost substrateTestCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum,
+                                         Substrate substrate, Long substrateId);
+
+    Optional<Substrate>  partiallyUpdateSubstrate(SubstrateCost updatedSubstrateCost, ComplexityEnum updatedComplexity, TechnologyEnum updatedTechnology,
+                                                  Substrate updatedSubstrate, Long substrateId);
 
     Optional<Substrate>  removeSubstrateById(Long substrateId);
 }

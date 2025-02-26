@@ -1,17 +1,12 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
 
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Area {
 
-    private Substrate substrate;
-
-    public double getArea() {
-        return substrate.getArea();
-    }
-
-    public void display(){
-        System.out.println(getArea());
-    }
+    Double areaValue;
 
 }

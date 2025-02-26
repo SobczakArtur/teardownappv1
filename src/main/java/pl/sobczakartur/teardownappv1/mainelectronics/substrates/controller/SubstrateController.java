@@ -9,60 +9,75 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateCost;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateService;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateServiceImpl;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/substrate")
+@RequestMapping("/api/substrate")
 public class SubstrateController {
 
 
 
-        private final SubstrateService substrateService;
+        private final SubstrateServiceImpl substrateServiceImpl;
 
         @Autowired
-        public SubstrateController(SubstrateService substrateService) {
-            this.substrateService = substrateService;
+        public SubstrateController(SubstrateServiceImpl substrateServiceImpl) {
+            this.substrateServiceImpl = substrateServiceImpl;
         }
 
 
 
-        @GetMapping("")
+        @GetMapping
         public ResponseEntity<List<Substrate>> getAllSubstrate() {
-            return new ResponseEntity<>(substrateService.getAllSubstrate(), HttpStatus.OK);
+            return new ResponseEntity<>(substrateServiceImpl.getAllSubstrate(), HttpStatus.OK);
         }
 
         @GetMapping("/{id}")
         public ResponseEntity<Substrate> getSubstrateById( @PathVariable("id") Long substrateId){
-            Optional<Substrate> takeById = substrateService.getSubstrateById(substrateId);
+            Optional<Substrate> takeById = substrateServiceImpl.getSubstrateById(substrateId);
             return takeById
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
 
-        @PostMapping("")
+        @PostMapping
         public ResponseEntity<Substrate> addSubstrate(@Valid @RequestBody Substrate substrate){
-            Optional<Substrate> substrateAdded = substrateService.addSubstrate(substrate);
+            Optional<Substrate> substrateAdded = substrateServiceImpl.addSubstrate(substrate);
             return substrateAdded
                     .map(value -> new ResponseEntity<>(value, HttpStatus.CREATED))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<Substrate> updateSubstrate(@RequestBody SubstrateCost substrateTestCost, @RequestBody ComplexityEnum complexityEnum,
-                                         @RequestBody TechnologyEnum technologyEnum, @RequestBody Substrate substrate, @PathVariable("id") Long substrateId) {
-            Optional<Substrate> substrateUpdate = substrateService.updateSubstrate(substrateTestCost, complexityEnum, technologyEnum, substrate, substrateId);
-            return substrateUpdate
+        public ResponseEntity<Substrate> updateSubstrate(@RequestBody SubstrateCost substrateTestCost,
+                                                         @RequestBody ComplexityEnum complexityEnum,
+                                                         @RequestBody TechnologyEnum technologyEnum,
+                                                         @RequestBody Substrate substrate,
+                                                         @PathVariable("id") Long substrateId) {
+            Optional<Substrate> substrateUpdated = substrateServiceImpl.updateSubstrate(substrateTestCost, complexityEnum, technologyEnum, substrate, substrateId);
+            return substrateUpdated
+                    .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
+
+        @PatchMapping("/{id}")
+        public ResponseEntity<Substrate> partiallyUpdateSubstrate(@RequestBody SubstrateCost substrateTestCost,
+                                                                  @RequestBody ComplexityEnum complexityEnum,
+                                                                  @RequestBody TechnologyEnum technologyEnum,
+                                                                  @RequestBody Substrate substrate,
+                                                                  @PathVariable("id") Long substrateId) {
+            Optional<Substrate> substrateUpdated = substrateServiceImpl.updateSubstrate(substrateTestCost,complexityEnum, technologyEnum, substrate, substrateId);
+            return substrateUpdated
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
 
         @DeleteMapping("/{id}")
         public ResponseEntity<Substrate> removeSubstrateById(@PathVariable("id") Long substrateId) {
-            Optional<Substrate> substrateDelete = substrateService.removeSubstrateById(substrateId);
+            Optional<Substrate> substrateDelete = substrateServiceImpl.removeSubstrateById(substrateId);
             return substrateDelete
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
