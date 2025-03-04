@@ -47,16 +47,16 @@ public class SubstrateServiceImpl implements SubstrateService {
                 substrDB.setAssemblyName(substrate.getAssemblyName());
                 substrDB.setSubstrateMarking(substrate.getSubstrateMarking());
                 substrDB.setManufacturer(substrate.getManufacturer());
-//                substrDB.setTechnology(technologyEnum.getName());
-                substrDB.setTechnologyDescription(technologyEnum.getDescription());
-                substrDB.setTechnologyCoreMaterial(technologyEnum.getCoreMaterial());
-                substrDB.setArea(substrate.getArea());
-                substrDB.setTechnologyMetalLayers(technologyEnum.getMetalLayers());
-//                substrDB.setComplexity(complexityEnum.getCompl());
+                substrDB.setTechnology(technologyEnum);
+//                substrDB.setTechnologyDescription(technologyEnum.getDescription());
+//                substrDB.setTechnologyCoreMaterial(technologyEnum.getCoreMaterial());
+                substrDB.setAreaValue(substrate.getAreaValue());
+//                substrDB.setTechnologyMetalLayers(technologyEnum.getMetalLayers());
+                substrDB.setComplexity(complexityEnum);
                 substrDB.setThickness(substrate.getThickness());
                 substrDB.setWeight(substrate.getWeight());
-                substrDB.setTestCost(substrateCost.testCost());
-                substrDB.setSubstrateCost(substrateCost.substrateCost());
+//                substrDB.setTestCost(substrateCost.testCost());
+//                substrDB.setSubstrateCost(substrateCost.substrateCost());
 
                 return Optional.of(substrateRepository.save(substrDB));
             }
@@ -74,16 +74,16 @@ public class SubstrateServiceImpl implements SubstrateService {
             if (updatedSubstrate.getAssemblyName() != null) substrDB.setAssemblyName(updatedSubstrate.getAssemblyName());
             if (updatedSubstrate.getSubstrateMarking() != null) substrDB.setSubstrateMarking(updatedSubstrate.getSubstrateMarking());
             if (updatedSubstrate.getManufacturer() != null) substrDB.setManufacturer(updatedSubstrate.getManufacturer());
-//            if (updatedTechnology.getName() != null) substrDB.setTechnology(updatedTechnology.getName());
-            if (updatedTechnology.getDescription() != null) substrDB.setTechnologyDescription(updatedTechnology.getDescription());
-            if (updatedTechnology.getCoreMaterial() != null) substrDB.setTechnologyCoreMaterial(updatedTechnology.getCoreMaterial());
-            if (updatedSubstrate.getArea().getAreaValue() > 0) substrDB.setArea(updatedSubstrate.getArea());
-            if (updatedTechnology.getMetalLayers() > 0) substrDB.setTechnologyMetalLayers(updatedTechnology.getMetalLayers());
-//            if (updatedComplexity.getCompl() > 0) substrDB.setComplexity(updatedComplexity.getCompl());
+            if (updatedTechnology != null) substrDB.setTechnology(updatedTechnology);
+//            if (updatedTechnology.getDescription() != null) substrDB.setTechnologyDescription(updatedTechnology.getDescription());
+//            if (updatedTechnology.getCoreMaterial() != null) substrDB.setTechnologyCoreMaterial(updatedTechnology.getCoreMaterial());
+            if (updatedSubstrate.getAreaValue().getAreaValue() > 0) substrDB.setAreaValue(updatedSubstrate.getAreaValue());
+//            if (updatedTechnology.getMetalLayers() > 0) substrDB.setTechnologyMetalLayers(updatedTechnology.getMetalLayers());
+            if (updatedComplexity != null) substrDB.setComplexity(updatedComplexity);
             if (updatedSubstrate.getThickness() > 0) substrDB.setThickness(updatedSubstrate.getThickness());
             if (updatedSubstrate.getWeight() > 0) substrDB.setWeight(updatedSubstrate.getWeight());
-            if (updatedSubstrateCost.testCost() > 0) substrDB.setTestCost(updatedSubstrateCost.testCost());
-            if (updatedSubstrateCost.substrateCost() > 0) substrDB.setSubstrateCost(updatedSubstrateCost.substrateCost());
+//            if (updatedSubstrateCost.testCost() > 0) substrDB.setTestCost(updatedSubstrateCost.testCost());
+//            if (updatedSubstrateCost.substrateCost() > 0) substrDB.setSubstrateCost(updatedSubstrateCost.substrateCost());
 
             return Optional.of(substrateRepository.save(substrDB));
         }

@@ -18,7 +18,7 @@ public class SubstrateCost {
     }
 
 
-    public Double substrateCost() {
+    public double substrateCost() {
 
         if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
             throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
@@ -26,7 +26,7 @@ public class SubstrateCost {
         return technology.getMetalLayers() * complexity.getCompl() / technology.getFactor() + (area.getAreaValue() / 6);
     }
 
-    public Double testCost() {
+    public double testCost() {
         if (complexity.getCompl() <= 0 || technology.getMetalLayers() <= 0 || technology.getFactor() <= 0) {
             throw new ArithmeticException("You can not divide or multiply by zero and negative numbers");
         }

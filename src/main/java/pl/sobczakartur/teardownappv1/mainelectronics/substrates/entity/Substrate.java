@@ -39,21 +39,24 @@ public class Substrate {
 
     @NotNull
     @Column(length = 255)
+    @Enumerated(EnumType.STRING)
     private TechnologyEnum technology; //TechnologyEnum
 
     @Column(length = 255)
-    private String technologyDescription = technology.getDescription(); //TechnologyEnum
+    private String technologyDescription; //TechnologyEnum
 
     @Column(length = 255)
-    private String technologyCoreMaterial = technology.getCoreMaterial();  //TechnologyEnum
+    private String technologyCoreMaterial;  //TechnologyEnum
+
+    @Embedded
+    @Positive
+    private Area areaValue;
 
     @Positive
-    private Area area;
+    private Integer technologyMetalLayers;  //TechnologyEnum
 
     @Positive
-    private Integer technologyMetalLayers = technology.getMetalLayers();  //TechnologyEnum
-
-    @Positive
+    @Enumerated(EnumType.STRING)
     private ComplexityEnum complexity;  //ComplexityEnum
 
     @Positive
@@ -62,14 +65,41 @@ public class Substrate {
     @PositiveOrZero
     private Double weight;
 
-    @Transient
-    SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, area);
+    @PositiveOrZero
+    private Double substrateCost;
 
     @PositiveOrZero
-    private Double testCost = substrateCostObject.testCost();  //SubstrateCost
+    private Double testCost;
 
-    @PositiveOrZero
-    private Double substrateCost = substrateCostObject.substrateCost();  //SubstrateCost
+
+    @PrePersist
+    @PreUpdate
+    private void updateTechnologyFields() {
+        if (technology != null) {
+            this.technologyDescription = technology.getDescription();
+            this.technologyCoreMaterial = technology.getCoreMaterial();
+            this.technologyMetalLayers = technology.getMetalLayers();
+
+            if (technology != null && complexity != null && areaValue != null) {
+                SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, areaValue);
+                this.substrateCost = substrateCostObject.substrateCost();
+                this.testCost = substrateCostObject.testCost();
+            }
+        }
+    }
+}
+
+
+
+//    @PrePersist
+//    @PreUpdate
+//    private void updateSubstrateTestCostFields() {
+//            if (technology != null && complexity != null && area != null) {
+//                SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, area);
+//                this.substrateCost = substrateCostObject.substrateCost();
+//                this.testCost = substrateCostObject.testCost();
+//            }
+//        }
 
 
 
@@ -93,6 +123,3 @@ public class Substrate {
 //            "substrateCost": "3.5"
 //    }
 //]
-
-
-}

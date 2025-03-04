@@ -158,7 +158,7 @@ public class SubstrateCostTest {
 
     Area createMockArea (Double areaValue){
         Area area = Mockito.mock(Area.class);
-        Mockito.when(area.getArea()).thenReturn(areaValue);
+        Mockito.when(area.getAreaValue()).thenReturn(areaValue);
         return area;
     }
 
