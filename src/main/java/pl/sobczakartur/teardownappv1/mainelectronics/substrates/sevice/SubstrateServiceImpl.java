@@ -2,9 +2,6 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.ComplexityEnum;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateCost;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
 
@@ -37,57 +34,63 @@ public class SubstrateServiceImpl implements SubstrateService {
 
 
         @Override
-        public Optional<Substrate> updateSubstrate(SubstrateCost substrateCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum,
-                                                   Substrate substrate, Long substrateId) {
+        public Optional<Substrate> updatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
 
-            boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
-            if (substrateIsPresent) {
-                Substrate substrDB = substrateRepository.findById(substrateId).get();
-
-                substrDB.setAssemblyName(substrate.getAssemblyName());
-                substrDB.setSubstrateMarking(substrate.getSubstrateMarking());
-                substrDB.setManufacturer(substrate.getManufacturer());
-                substrDB.setTechnology(technologyEnum);
-//                substrDB.setTechnologyDescription(technologyEnum.getDescription());
-//                substrDB.setTechnologyCoreMaterial(technologyEnum.getCoreMaterial());
-                substrDB.setAreaValue(substrate.getAreaValue());
-//                substrDB.setTechnologyMetalLayers(technologyEnum.getMetalLayers());
-                substrDB.setComplexity(complexityEnum);
-                substrDB.setThickness(substrate.getThickness());
-                substrDB.setWeight(substrate.getWeight());
-//                substrDB.setTestCost(substrateCost.testCost());
-//                substrDB.setSubstrateCost(substrateCost.substrateCost());
-
-                return Optional.of(substrateRepository.save(substrDB));
+                Optional<Substrate> substrate = getSubstrateById(substrateId);
+                if (substrate.isPresent()){
+                    Substrate updated = substrateRepository.save(substrateToUpdate);
+                    return Optional.of(updated);
             }
             return Optional.empty();
         }
 
     @Override
-    public Optional<Substrate> partiallyUpdateSubstrate(SubstrateCost updatedSubstrateCost, ComplexityEnum updatedComplexity, TechnologyEnum updatedTechnology,
-                                                        Substrate updatedSubstrate, Long substrateId) {
+    public Optional<Substrate> partiallyUpdatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
 
-        boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
-        if (substrateIsPresent) {
-            Substrate substrDB = substrateRepository.findById(substrateId).get();
+//        boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
+//        Substrate substrDB = substrateRepository.findById(substrateId)
+//                .orElseThrow(() -> new EntityNotFoundException("Substrate not found"));
 
-            if (updatedSubstrate.getAssemblyName() != null) substrDB.setAssemblyName(updatedSubstrate.getAssemblyName());
-            if (updatedSubstrate.getSubstrateMarking() != null) substrDB.setSubstrateMarking(updatedSubstrate.getSubstrateMarking());
-            if (updatedSubstrate.getManufacturer() != null) substrDB.setManufacturer(updatedSubstrate.getManufacturer());
-            if (updatedTechnology != null) substrDB.setTechnology(updatedTechnology);
-//            if (updatedTechnology.getDescription() != null) substrDB.setTechnologyDescription(updatedTechnology.getDescription());
-//            if (updatedTechnology.getCoreMaterial() != null) substrDB.setTechnologyCoreMaterial(updatedTechnology.getCoreMaterial());
-            if (updatedSubstrate.getAreaValue().getAreaValue() > 0) substrDB.setAreaValue(updatedSubstrate.getAreaValue());
-//            if (updatedTechnology.getMetalLayers() > 0) substrDB.setTechnologyMetalLayers(updatedTechnology.getMetalLayers());
-            if (updatedComplexity != null) substrDB.setComplexity(updatedComplexity);
-            if (updatedSubstrate.getThickness() > 0) substrDB.setThickness(updatedSubstrate.getThickness());
-            if (updatedSubstrate.getWeight() > 0) substrDB.setWeight(updatedSubstrate.getWeight());
-//            if (updatedSubstrateCost.testCost() > 0) substrDB.setTestCost(updatedSubstrateCost.testCost());
-//            if (updatedSubstrateCost.substrateCost() > 0) substrDB.setSubstrateCost(updatedSubstrateCost.substrateCost());
+        return substrateRepository.findById(substrateId).map(existingSubstrate -> {
 
-            return Optional.of(substrateRepository.save(substrDB));
-        }
-        return Optional.empty();
+            if (substrateToUpdate.getAssemblyName() != null) {
+                existingSubstrate.setAssemblyName(substrateToUpdate.getAssemblyName());
+            }
+
+            if (substrateToUpdate.getSubstrateMarking() != null) {
+                existingSubstrate.setSubstrateMarking(substrateToUpdate.getSubstrateMarking());
+            }
+
+            if (substrateToUpdate.getManufacturer() != null) {
+                existingSubstrate.setManufacturer(substrateToUpdate.getManufacturer());
+            }
+
+            if (substrateToUpdate.getTechnology() != null) {
+                existingSubstrate.setTechnology(substrateToUpdate.getTechnology());
+                existingSubstrate.recalculateFields();
+            }
+
+            if (substrateToUpdate.getAreaValue() != null) {
+                existingSubstrate.setAreaValue(substrateToUpdate.getAreaValue());
+                existingSubstrate.recalculateFields();
+            }
+
+            if (substrateToUpdate.getComplexity() != null) {
+                existingSubstrate.setComplexity(substrateToUpdate.getComplexity());
+                existingSubstrate.recalculateFields();
+            }
+
+            if (substrateToUpdate.getThickness() != null) {
+                existingSubstrate.setThickness(substrateToUpdate.getThickness());
+            }
+
+            if (substrateToUpdate.getWeight() != null) {
+                existingSubstrate.setWeight(substrateToUpdate.getWeight());
+            }
+
+            return substrateRepository.save(existingSubstrate);
+        });
+//        return Optional.empty();
     }
 
     @Override
@@ -102,4 +105,29 @@ public class SubstrateServiceImpl implements SubstrateService {
 
 
 
+//    @Override
+//    public Optional<Substrate> updateSubstrate(Substrate substrateToUpdate, Long substrateId) {
+//
+//        boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
+//        if (substrateIsPresent) {
+//            Substrate substrDB = substrateRepository.findById(substrateId).get();
+//
+//            substrDB.setAssemblyName(substrate.getAssemblyName());
+//            substrDB.setSubstrateMarking(substrate.getSubstrateMarking());
+//            substrDB.setManufacturer(substrate.getManufacturer());
+//            substrDB.setTechnology(technologyEnum);
+////                substrDB.setTechnologyDescription(technologyEnum.getDescription());
+////                substrDB.setTechnologyCoreMaterial(technologyEnum.getCoreMaterial());
+//            substrDB.setAreaValue(substrate.getAreaValue());
+////                substrDB.setTechnologyMetalLayers(technologyEnum.getMetalLayers());
+//            substrDB.setComplexity(complexityEnum);
+//            substrDB.setThickness(substrate.getThickness());
+//            substrDB.setWeight(substrate.getWeight());
+////                substrDB.setTestCost(substrateCost.testCost());
+////                substrDB.setSubstrateCost(substrateCost.substrateCost());
+//
+//            return Optional.of(substrateRepository.save(substrDB));
+//        }
+//        return Optional.empty();
+//    }
 

@@ -48,15 +48,17 @@ public class Substrate {
     @Column(length = 255)
     private String technologyCoreMaterial;  //TechnologyEnum
 
+    @NotNull
     @Embedded
-    @Positive
+//    @Positive
     private Area areaValue;
 
     @Positive
     private Integer technologyMetalLayers;  //TechnologyEnum
 
-    @Positive
-    @Enumerated(EnumType.STRING)
+    @NotNull
+//    @Enumerated(EnumType.STRING)
+//    @Positive
     private ComplexityEnum complexity;  //ComplexityEnum
 
     @Positive
@@ -74,7 +76,7 @@ public class Substrate {
 
     @PrePersist
     @PreUpdate
-    private void updateTechnologyFields() {
+    private void updateTechnologyAndCostsFields() {
         if (technology != null) {
             this.technologyDescription = technology.getDescription();
             this.technologyCoreMaterial = technology.getCoreMaterial();
@@ -84,42 +86,11 @@ public class Substrate {
                 SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, areaValue);
                 this.substrateCost = substrateCostObject.substrateCost();
                 this.testCost = substrateCostObject.testCost();
-            }
+                }
         }
     }
+
+    public void recalculateFields() {
+        updateTechnologyAndCostsFields();
+    }
 }
-
-
-
-//    @PrePersist
-//    @PreUpdate
-//    private void updateSubstrateTestCostFields() {
-//            if (technology != null && complexity != null && area != null) {
-//                SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, area);
-//                this.substrateCost = substrateCostObject.substrateCost();
-//                this.testCost = substrateCostObject.testCost();
-//            }
-//        }
-
-
-
-
-
-//    POSTMAN
-//[
-//    {
-//            "assemblyName": "120 Hz Display",
-//            "substrateMarking": "hhdkdjj",
-//            "manufacturer": "Techinsight",
-//            "technologyName": "TWO_LAYER_F",
-//            "technologyDescription": "2 Layer F",
-//            "technologyCoreMaterial": "Poly",
-//            "area": "2.9",
-//            "technologyMetalLayers": "2",
-//            "complexity": "0.3",
-//            "thickness": "1.1",
-//            "weight": "3.0",
-//            "testCost": "5.7",
-//            "substrateCost": "3.5"
-//    }
-//]

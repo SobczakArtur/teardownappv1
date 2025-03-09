@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.ComplexityEnum;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateCost;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateServiceImpl;
 
@@ -20,15 +17,12 @@ import java.util.Optional;
 public class SubstrateController {
 
 
-
         private final SubstrateServiceImpl substrateServiceImpl;
 
         @Autowired
         public SubstrateController(SubstrateServiceImpl substrateServiceImpl) {
             this.substrateServiceImpl = substrateServiceImpl;
         }
-
-
 
         @GetMapping
         public ResponseEntity<List<Substrate>> getAllSubstrate() {
@@ -52,24 +46,16 @@ public class SubstrateController {
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<Substrate> updateSubstrate(@RequestBody SubstrateCost substrateTestCost,
-                                                         @RequestBody ComplexityEnum complexityEnum,
-                                                         @RequestBody TechnologyEnum technologyEnum,
-                                                         @RequestBody Substrate substrate,
-                                                         @PathVariable("id") Long substrateId) {
-            Optional<Substrate> substrateUpdated = substrateServiceImpl.updateSubstrate(substrateTestCost, complexityEnum, technologyEnum, substrate, substrateId);
+        public ResponseEntity<Substrate> updateSubstrate(@RequestBody Substrate substrate, @PathVariable("id") Long substrateId) {
+            Optional<Substrate> substrateUpdated = substrateServiceImpl.updatedSubstrate(substrate, substrateId);
             return substrateUpdated
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
 
         @PatchMapping("/{id}")
-        public ResponseEntity<Substrate> partiallyUpdateSubstrate(@RequestBody SubstrateCost substrateTestCost,
-                                                                  @RequestBody ComplexityEnum complexityEnum,
-                                                                  @RequestBody TechnologyEnum technologyEnum,
-                                                                  @RequestBody Substrate substrate,
-                                                                  @PathVariable("id") Long substrateId) {
-            Optional<Substrate> substrateUpdated = substrateServiceImpl.updateSubstrate(substrateTestCost,complexityEnum, technologyEnum, substrate, substrateId);
+        public ResponseEntity<Substrate> partiallyUpdatedSubstrate(@RequestBody Substrate substrateUpd, @PathVariable("id") Long substrateId) {
+            Optional<Substrate> substrateUpdated = substrateServiceImpl.partiallyUpdatedSubstrate(substrateUpd, substrateId);
             return substrateUpdated
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

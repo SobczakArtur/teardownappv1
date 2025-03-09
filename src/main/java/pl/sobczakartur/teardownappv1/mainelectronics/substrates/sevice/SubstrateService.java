@@ -1,8 +1,5 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
 
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.ComplexityEnum;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateCost;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 
 import java.util.List;
@@ -17,11 +14,9 @@ public interface SubstrateService {
 
     Optional<Substrate>  addSubstrate(Substrate substrate);
 
-    Optional<Substrate>  updateSubstrate(SubstrateCost substrateTestCost, ComplexityEnum complexityEnum, TechnologyEnum technologyEnum,
-                                         Substrate substrate, Long substrateId);
+    Optional<Substrate>  updatedSubstrate(Substrate substrateToUpdate, Long substrateId);
 
-    Optional<Substrate>  partiallyUpdateSubstrate(SubstrateCost updatedSubstrateCost, ComplexityEnum updatedComplexity, TechnologyEnum updatedTechnology,
-                                                  Substrate updatedSubstrate, Long substrateId);
+    Optional<Substrate>  partiallyUpdatedSubstrate(Substrate updatedSubstrate, Long substrateId);
 
     Optional<Substrate>  removeSubstrateById(Long substrateId);
 }
