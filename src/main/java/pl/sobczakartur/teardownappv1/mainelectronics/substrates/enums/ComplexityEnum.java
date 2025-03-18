@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
+package pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums;
 
 public enum ComplexityEnum {
         SIMPLE(0.1),
@@ -17,6 +17,3 @@ public enum ComplexityEnum {
             return compl;
         }
     }
-
-
-//    'SIMPLE','LOW','MEDIUM','HIGH'

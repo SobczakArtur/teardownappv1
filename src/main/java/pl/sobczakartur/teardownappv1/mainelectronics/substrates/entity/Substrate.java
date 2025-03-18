@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.Area;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.ComplexityEnum;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.SubstrateCost;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.TechnologyEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.SubstrateCost;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+
 
 
 @Data
@@ -22,7 +22,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class Substrate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long substrateId;
 
     @NotNull
@@ -50,15 +50,15 @@ public class Substrate {
 
     @NotNull
     @Embedded
-//    @Positive
+    @Positive
     private Area areaValue;
 
     @Positive
     private Integer technologyMetalLayers;  //TechnologyEnum
 
     @NotNull
-//    @Enumerated(EnumType.STRING)
-//    @Positive
+    @Positive
+    @Enumerated(EnumType.STRING)
     private ComplexityEnum complexity;  //ComplexityEnum
 
     @Positive
@@ -67,9 +67,11 @@ public class Substrate {
     @PositiveOrZero
     private Double weight;
 
+//    @Column(precision = 10, scale = 2)
     @PositiveOrZero
     private Double substrateCost;
 
+//    @Column(precision = 10, scale = 2)
     @PositiveOrZero
     private Double testCost;
 

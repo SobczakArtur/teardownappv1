@@ -1,16 +1,16 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
+package pl.sobczakartur.teardownappv1.mainelectronics.substrates.util;
 
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Area;
 
-@Getter
+
 public class SubstrateCost {
 
     private final TechnologyEnum technology;
     private final ComplexityEnum complexity;
     private final Area area;
 
-    @Autowired
     public SubstrateCost(TechnologyEnum technology, ComplexityEnum complexity, Area area){
         this.technology = technology;
         this.complexity = complexity;

@@ -1,8 +1,9 @@
 package pl.sobczakartur.teardownappv1;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
+@SpringBootTest
 class TeardownV1ApplicationTests {
 
 	@Test

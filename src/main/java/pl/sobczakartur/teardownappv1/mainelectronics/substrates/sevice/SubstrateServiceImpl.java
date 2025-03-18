@@ -3,19 +3,23 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.ResourceNotFoundException;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 
-@Service
+@Service("substrateServiceImpl")
 public class SubstrateServiceImpl implements SubstrateService {
 
+
+        private final SubstrateRepository substrateRepository;
+
         @Autowired
-        private SubstrateRepository substrateRepository;
-
-
+        public SubstrateServiceImpl(SubstrateRepository substrateRepository) {
+            this.substrateRepository = substrateRepository;
+        }
 
         @Override
         public List<Substrate> getAllSubstrate() {
@@ -23,8 +27,13 @@ public class SubstrateServiceImpl implements SubstrateService {
         }
 
         @Override
-        public Optional<Substrate> getSubstrateById(Long substrateId){
-            return substrateRepository.findById(substrateId);
+        public Optional<Substrate> getSubstrateById(Long substrateId) {
+            Optional<Substrate> optionalSubstrate = substrateRepository.findById(substrateId);
+            if (optionalSubstrate.isPresent()) {
+                return optionalSubstrate;
+            } else {
+                throw new ResourceNotFoundException("Substrate not found with ID: " + substrateId);
+            }
         }
 
         @Override
@@ -44,90 +53,54 @@ public class SubstrateServiceImpl implements SubstrateService {
             return Optional.empty();
         }
 
-    @Override
-    public Optional<Substrate> partiallyUpdatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
+        @Override
+        public Optional<Substrate> partiallyUpdatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
 
-//        boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
-//        Substrate substrDB = substrateRepository.findById(substrateId)
-//                .orElseThrow(() -> new EntityNotFoundException("Substrate not found"));
+            return substrateRepository.findById(substrateId).map(existingSubstrate -> {
 
-        return substrateRepository.findById(substrateId).map(existingSubstrate -> {
+                if (substrateToUpdate.getAssemblyName() != null) {
+                    existingSubstrate.setAssemblyName(substrateToUpdate.getAssemblyName());
+                }
 
-            if (substrateToUpdate.getAssemblyName() != null) {
-                existingSubstrate.setAssemblyName(substrateToUpdate.getAssemblyName());
-            }
+                if (substrateToUpdate.getSubstrateMarking() != null) {
+                    existingSubstrate.setSubstrateMarking(substrateToUpdate.getSubstrateMarking());
+                }
 
-            if (substrateToUpdate.getSubstrateMarking() != null) {
-                existingSubstrate.setSubstrateMarking(substrateToUpdate.getSubstrateMarking());
-            }
+                if (substrateToUpdate.getManufacturer() != null) {
+                    existingSubstrate.setManufacturer(substrateToUpdate.getManufacturer());
+                }
 
-            if (substrateToUpdate.getManufacturer() != null) {
-                existingSubstrate.setManufacturer(substrateToUpdate.getManufacturer());
-            }
+                if (substrateToUpdate.getTechnology() != null) {
+                    existingSubstrate.setTechnology(substrateToUpdate.getTechnology());
+                    existingSubstrate.recalculateFields();
+                }
 
-            if (substrateToUpdate.getTechnology() != null) {
-                existingSubstrate.setTechnology(substrateToUpdate.getTechnology());
-                existingSubstrate.recalculateFields();
-            }
+                if (substrateToUpdate.getAreaValue() != null) {
+                    existingSubstrate.setAreaValue(substrateToUpdate.getAreaValue());
+                    existingSubstrate.recalculateFields();
+                }
 
-            if (substrateToUpdate.getAreaValue() != null) {
-                existingSubstrate.setAreaValue(substrateToUpdate.getAreaValue());
-                existingSubstrate.recalculateFields();
-            }
+                if (substrateToUpdate.getComplexity() != null) {
+                    existingSubstrate.setComplexity(substrateToUpdate.getComplexity());
+                    existingSubstrate.recalculateFields();
+                }
 
-            if (substrateToUpdate.getComplexity() != null) {
-                existingSubstrate.setComplexity(substrateToUpdate.getComplexity());
-                existingSubstrate.recalculateFields();
-            }
+                if (substrateToUpdate.getThickness() != null) {
+                    existingSubstrate.setThickness(substrateToUpdate.getThickness());
+                }
 
-            if (substrateToUpdate.getThickness() != null) {
-                existingSubstrate.setThickness(substrateToUpdate.getThickness());
-            }
+                if (substrateToUpdate.getWeight() != null) {
+                    existingSubstrate.setWeight(substrateToUpdate.getWeight());
+                }
 
-            if (substrateToUpdate.getWeight() != null) {
-                existingSubstrate.setWeight(substrateToUpdate.getWeight());
-            }
-
-            return substrateRepository.save(existingSubstrate);
-        });
-//        return Optional.empty();
-    }
-
-    @Override
-        public Optional<Substrate> removeSubstrateById(Long substrateId) {
-            Optional<Substrate> substrateToRemove = getSubstrateById(substrateId);
-            substrateRepository.deleteById(substrateId);
-            return substrateToRemove;
+                return substrateRepository.save(existingSubstrate);
+            });
         }
-}
 
-
-
-
-
-//    @Override
-//    public Optional<Substrate> updateSubstrate(Substrate substrateToUpdate, Long substrateId) {
-//
-//        boolean substrateIsPresent = substrateRepository.findById(substrateId).isPresent();
-//        if (substrateIsPresent) {
-//            Substrate substrDB = substrateRepository.findById(substrateId).get();
-//
-//            substrDB.setAssemblyName(substrate.getAssemblyName());
-//            substrDB.setSubstrateMarking(substrate.getSubstrateMarking());
-//            substrDB.setManufacturer(substrate.getManufacturer());
-//            substrDB.setTechnology(technologyEnum);
-////                substrDB.setTechnologyDescription(technologyEnum.getDescription());
-////                substrDB.setTechnologyCoreMaterial(technologyEnum.getCoreMaterial());
-//            substrDB.setAreaValue(substrate.getAreaValue());
-////                substrDB.setTechnologyMetalLayers(technologyEnum.getMetalLayers());
-//            substrDB.setComplexity(complexityEnum);
-//            substrDB.setThickness(substrate.getThickness());
-//            substrDB.setWeight(substrate.getWeight());
-////                substrDB.setTestCost(substrateCost.testCost());
-////                substrDB.setSubstrateCost(substrateCost.substrateCost());
-//
-//            return Optional.of(substrateRepository.save(substrDB));
-//        }
-//        return Optional.empty();
-//    }
-
+        @Override
+            public Optional<Substrate> removeSubstrateById(Long substrateId) {
+                Optional<Substrate> substrateToRemove = getSubstrateById(substrateId);
+                substrateRepository.deleteById(substrateId);
+                return substrateToRemove;
+            }
+    }

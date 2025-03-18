@@ -2,11 +2,12 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateServiceImpl;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,21 +18,22 @@ import java.util.Optional;
 public class SubstrateController {
 
 
-        private final SubstrateServiceImpl substrateServiceImpl;
+
+        private final SubstrateService substrateService;
 
         @Autowired
-        public SubstrateController(SubstrateServiceImpl substrateServiceImpl) {
-            this.substrateServiceImpl = substrateServiceImpl;
+        public SubstrateController(@Qualifier("substrateServiceImpl") SubstrateService substrateService) {
+            this.substrateService = substrateService;
         }
 
         @GetMapping
         public ResponseEntity<List<Substrate>> getAllSubstrate() {
-            return new ResponseEntity<>(substrateServiceImpl.getAllSubstrate(), HttpStatus.OK);
+            return new ResponseEntity<>(substrateService.getAllSubstrate(), HttpStatus.OK);
         }
 
         @GetMapping("/{id}")
         public ResponseEntity<Substrate> getSubstrateById( @PathVariable("id") Long substrateId){
-            Optional<Substrate> takeById = substrateServiceImpl.getSubstrateById(substrateId);
+            Optional<Substrate> takeById = substrateService.getSubstrateById(substrateId);
             return takeById
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -39,7 +41,7 @@ public class SubstrateController {
 
         @PostMapping
         public ResponseEntity<Substrate> addSubstrate(@Valid @RequestBody Substrate substrate){
-            Optional<Substrate> substrateAdded = substrateServiceImpl.addSubstrate(substrate);
+            Optional<Substrate> substrateAdded = substrateService.addSubstrate(substrate);
             return substrateAdded
                     .map(value -> new ResponseEntity<>(value, HttpStatus.CREATED))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -47,7 +49,7 @@ public class SubstrateController {
 
         @PutMapping("/{id}")
         public ResponseEntity<Substrate> updateSubstrate(@RequestBody Substrate substrate, @PathVariable("id") Long substrateId) {
-            Optional<Substrate> substrateUpdated = substrateServiceImpl.updatedSubstrate(substrate, substrateId);
+            Optional<Substrate> substrateUpdated = substrateService.updatedSubstrate(substrate, substrateId);
             return substrateUpdated
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -55,7 +57,7 @@ public class SubstrateController {
 
         @PatchMapping("/{id}")
         public ResponseEntity<Substrate> partiallyUpdatedSubstrate(@RequestBody Substrate substrateUpd, @PathVariable("id") Long substrateId) {
-            Optional<Substrate> substrateUpdated = substrateServiceImpl.partiallyUpdatedSubstrate(substrateUpd, substrateId);
+            Optional<Substrate> substrateUpdated = substrateService.partiallyUpdatedSubstrate(substrateUpd, substrateId);
             return substrateUpdated
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -63,7 +65,7 @@ public class SubstrateController {
 
         @DeleteMapping("/{id}")
         public ResponseEntity<Substrate> removeSubstrateById(@PathVariable("id") Long substrateId) {
-            Optional<Substrate> substrateDelete = substrateServiceImpl.removeSubstrateById(substrateId);
+            Optional<Substrate> substrateDelete = substrateService.removeSubstrateById(substrateId);
             return substrateDelete
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates;
+package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
