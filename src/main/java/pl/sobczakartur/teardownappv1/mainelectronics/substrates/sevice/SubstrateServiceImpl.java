@@ -21,6 +21,7 @@ public class SubstrateServiceImpl implements SubstrateService {
             this.substrateRepository = substrateRepository;
         }
 
+
         @Override
         public List<Substrate> getAllSubstrate() {
             return substrateRepository.findAll();

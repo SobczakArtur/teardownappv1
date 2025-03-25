@@ -1,20 +1,18 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
+import lombok.*;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.SubstrateCost;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.SubstrateCost;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 
-
-@Data
+@Builder
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -25,19 +23,19 @@ public class Substrate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long substrateId;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     private String assemblyName;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     private String substrateMarking;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     private String manufacturer;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     @Enumerated(EnumType.STRING)
     private TechnologyEnum technology; //TechnologyEnum
@@ -48,15 +46,15 @@ public class Substrate {
     @Column(length = 255)
     private String technologyCoreMaterial;  //TechnologyEnum
 
-    @NotNull
+//    @NotNull
     @Embedded
     @Positive
     private Area areaValue;
 
     @Positive
-    private Integer technologyMetalLayers;  //TechnologyEnum
+    private Integer technologyMetalLrs;  //TechnologyEnum
 
-    @NotNull
+//    @NotNull
     @Positive
     @Enumerated(EnumType.STRING)
     private ComplexityEnum complexity;  //ComplexityEnum
@@ -82,7 +80,7 @@ public class Substrate {
         if (technology != null) {
             this.technologyDescription = technology.getDescription();
             this.technologyCoreMaterial = technology.getCoreMaterial();
-            this.technologyMetalLayers = technology.getMetalLayers();
+            this.technologyMetalLrs = technology.getMetalLrs();
 
             if (technology != null && complexity != null && areaValue != null) {
                 SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, areaValue);

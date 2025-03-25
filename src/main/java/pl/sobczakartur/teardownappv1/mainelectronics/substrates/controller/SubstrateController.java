@@ -18,7 +18,6 @@ import java.util.Optional;
 public class SubstrateController {
 
 
-
         private final SubstrateService substrateService;
 
         @Autowired
@@ -26,13 +25,14 @@ public class SubstrateController {
             this.substrateService = substrateService;
         }
 
+
         @GetMapping
         public ResponseEntity<List<Substrate>> getAllSubstrate() {
             return new ResponseEntity<>(substrateService.getAllSubstrate(), HttpStatus.OK);
         }
 
         @GetMapping("/{id}")
-        public ResponseEntity<Substrate> getSubstrateById( @PathVariable("id") Long substrateId){
+        public ResponseEntity<Substrate> getSubstrateById(@PathVariable("id") Long substrateId){
             Optional<Substrate> takeById = substrateService.getSubstrateById(substrateId);
             return takeById
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
