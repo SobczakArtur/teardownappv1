@@ -22,6 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SubstrateController.class)
 public class SubstrateControllerTest {
 
+    private final String API_BASE_URL = "/api/substrate";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,7 +47,7 @@ public class SubstrateControllerTest {
 
         when(substrateService.getAllSubstrate()).thenReturn(substrates);
 
-        mockMvc.perform(get("/api/substrate"))
+        mockMvc.perform(get(API_BASE_URL))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
     }
@@ -53,15 +55,14 @@ public class SubstrateControllerTest {
     @Test
     void shouldReturnSubstrateById() throws Exception {
 
-        Long substrateId = 1L;
         Substrate substrate = Substrate.builder()
-                .substrateId(substrateId)
-                .assemblyName("Substrate A")
-                .build();
+                                .substrateId(1L)
+                                .assemblyName("Substrate A")
+                                .build();
 
-        when(substrateService.getSubstrateById(substrateId)).thenReturn(Optional.of(substrate));
+        when(substrateService.getSubstrateById(1L)).thenReturn(Optional.of(substrate));
 
-        mockMvc.perform(get("/api/substrate/1"))
+        mockMvc.perform(get(API_BASE_URL + "/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.substrateId").value(1))
                 .andExpect(jsonPath("$.assemblyName").value("Substrate A"));
@@ -71,7 +72,7 @@ public class SubstrateControllerTest {
     void shouldReturn404WhenSubstrateNotFound() throws Exception {
         when(substrateService.getSubstrateById(999L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/api/substrate/999"))
+        mockMvc.perform(get(API_BASE_URL + "/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -84,7 +85,7 @@ public class SubstrateControllerTest {
                                 .build();
         when(substrateService.addSubstrate(any())).thenReturn(Optional.of(substrate));
 
-        mockMvc.perform(post("/api/substrate")
+        mockMvc.perform(post(API_BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"substrateId\":1,\"assemblyName\":\"New Substrate\"}"))
                         .andExpect(status().isCreated())
@@ -96,7 +97,7 @@ public class SubstrateControllerTest {
     void shouldReturn500WhenAddSubstrateFails() throws Exception {
         when(substrateService.addSubstrate(any())).thenReturn(Optional.empty());
 
-        mockMvc.perform(post("/api/substrate")
+        mockMvc.perform(post(API_BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"substrateId\":1,\"assemblyName\":\"New Substrate\"}"))
                 .andExpect(status().isInternalServerError());
@@ -111,7 +112,7 @@ public class SubstrateControllerTest {
                                         .build();
         when(substrateService.updatedSubstrate(any(), eq(1L))).thenReturn(Optional.of(updatedSubstrate));
 
-        mockMvc.perform(put("/api/substrate/1")
+        mockMvc.perform(put(API_BASE_URL + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"substrateId\":1,\"assemblyName\":\"Updated Substrate\"}"))
                 .andExpect(status().isOk())
@@ -122,7 +123,7 @@ public class SubstrateControllerTest {
     void shouldReturn404WhenUpdateFails() throws Exception {
         when(substrateService.updatedSubstrate(any(), eq(999L))).thenReturn(Optional.empty());
 
-        mockMvc.perform(put("/api/substrate/999")
+        mockMvc.perform(put(API_BASE_URL + "/999")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"substrateId\":999,\"assemblyName\":\"Non-existent\"}"))
                 .andExpect(status().isNotFound());
@@ -137,7 +138,7 @@ public class SubstrateControllerTest {
                                         .build();
         when(substrateService.partiallyUpdatedSubstrate(any(), eq(1L))).thenReturn(Optional.of(updatedSubstrate));
 
-        mockMvc.perform(patch("/api/substrate/1")
+        mockMvc.perform(patch(API_BASE_URL + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"assemblyName\":\"Partially Updated Substrate\"}"))
                 .andExpect(status().isOk())
@@ -148,7 +149,7 @@ public class SubstrateControllerTest {
     void shouldReturn404WhenPartialUpdateFails() throws Exception {
         when(substrateService.partiallyUpdatedSubstrate(any(), eq(999L))).thenReturn(Optional.empty());
 
-        mockMvc.perform(patch("/api/substrate/999")
+        mockMvc.perform(patch(API_BASE_URL + "/999")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"assemblyName\":\"Non-existent\"}"))
                 .andExpect(status().isNotFound());
@@ -163,7 +164,7 @@ public class SubstrateControllerTest {
                                             .build();
         when(substrateService.removeSubstrateById(1L)).thenReturn(Optional.of(deletedSubstrate));
 
-        mockMvc.perform(delete("/api/substrate/1"))
+        mockMvc.perform(delete(API_BASE_URL + "/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.assemblyName").value("Deleted Substrate"));
     }
@@ -172,19 +173,7 @@ public class SubstrateControllerTest {
     void shouldReturn404WhenDeleteFails() throws Exception {
         when(substrateService.removeSubstrateById(999L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(delete("/api/substrate/999"))
+        mockMvc.perform(delete(API_BASE_URL + "/999"))
                 .andExpect(status().isNotFound());
     }
 }
-
-
-
-//        1	3	S-Pen Board	SIMPLE	onsemi	0.7439024390243902	ascadewca	FOUR_LAYER_C	R4F4	4 Layer C	4	0.541	3.3	5
-//        2	6.32	120Hz Display Flex	SIMPLE	Samsung	1.2523383084577115	sdvcscscsasdf	FOUR_LAYER_FV	Poly	4 Layer FwV	4	1.1035833333333334	2.7	4.63
-//        3	10.96	Main Board	HIGH	Red-Board	3.2451063829787237	asckiksinmdkcxmd	FOUR_LAYER_B	R4F4	4 Layer B	4	2.0029166666666667	7.7	8.12
-//        4	4.34	Auxiliary Board	LOW	Red-Board	1.2721138211382113	sdlwkjxmell,	THREE_LAYER_C	R4F4	3 Layer C	3	0.8873333333333333	5.81	3.99
-//        5	3.68	Battery Board	SIMPLE	Unknown	0.8572357723577236	slkiemshgk	FOUR_LAYER_C	R4F4	4 Layer C	4	0.6543333333333334	6.55	3
-//        6	3.89	Fingerprint Flex	LOW	Qualcomm	0.9468407960199006	None	TWO_LAYER_FV	Poly	2 Layer FwV	2	0.9498333333333333	2.3	2.15
-//        8	1.5	2MP Front Camera Flex	LOW	Unknown	0.6977611940298507	slkkiemmxk	THREE_LAYER_FV	Poly	3 Layer FwV	3	0.45099999999999996	6.4	4.05
-//        9	4.5	20MP Rear Camera Flex	SIMPLE	Apple	0.8992537313432836	askmxmka	THREE_LAYER_FV	Poly	3 Layer FwV	3	0.817	7.95	4.65
-//        10	6.72	48MP Rear Camera Flex	LOW	Apple	1.5021656050955412	askmdwmmx	FOUR_LAYER_F	Poly	4 Layer F	4	1.3555	8.01	4.9

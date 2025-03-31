@@ -10,6 +10,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 
+@Data
 @Builder
 @Setter
 @Getter
@@ -52,7 +53,7 @@ public class Substrate {
     private Area areaValue;
 
     @Positive
-    private Integer technologyMetalLrs;  //TechnologyEnum
+    private Integer technologyMetalLs;  //TechnologyEnum
 
 //    @NotNull
     @Positive
@@ -80,7 +81,7 @@ public class Substrate {
         if (technology != null) {
             this.technologyDescription = technology.getDescription();
             this.technologyCoreMaterial = technology.getCoreMaterial();
-            this.technologyMetalLrs = technology.getMetalLrs();
+            this.technologyMetalLs = technology.getMetalLs();
 
             if (technology != null && complexity != null && areaValue != null) {
                 SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, areaValue);

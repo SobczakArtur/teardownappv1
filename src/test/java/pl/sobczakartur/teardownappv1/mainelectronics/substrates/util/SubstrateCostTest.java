@@ -146,9 +146,9 @@ public class SubstrateCostTest {
 
 
 
-    TechnologyEnum createMockTech (Integer metalLrs, Double factor){
+    TechnologyEnum createMockTech (Integer metalLs, Double factor){
         TechnologyEnum technology = Mockito.mock(TechnologyEnum.class);
-        Mockito.when(technology.getMetalLrs()).thenReturn(metalLrs);
+        Mockito.when(technology.getMetalLs()).thenReturn(metalLs);
         Mockito.when(technology.getFactor()).thenReturn(factor);
         return technology;
     }

@@ -29,12 +29,14 @@ public class SubstrateServiceImpl implements SubstrateService {
 
         @Override
         public Optional<Substrate> getSubstrateById(Long substrateId) {
-            Optional<Substrate> optionalSubstrate = substrateRepository.findById(substrateId);
-            if (optionalSubstrate.isPresent()) {
-                return optionalSubstrate;
-            } else {
-                throw new ResourceNotFoundException("Substrate not found with ID: " + substrateId);
-            }
+            return Optional.of(substrateRepository.findById(substrateId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Substrate not found with ID: " + substrateId)));
+//            Optional<Substrate> optionalSubstrate = substrateRepository.findById(substrateId);
+//            if (optionalSubstrate.isPresent()) {
+//                return optionalSubstrate;
+//            } else {
+//                throw new ResourceNotFoundException("Substrate not found with ID: " + substrateId);
+//            }
         }
 
         @Override
