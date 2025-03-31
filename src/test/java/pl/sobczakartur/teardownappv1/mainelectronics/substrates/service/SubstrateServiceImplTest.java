@@ -148,34 +148,3 @@ public class SubstrateServiceImplTest {
         verify(substrateRepository, times(1)).deleteById(1L);
     }
 }
-
-
-
-
-//    @Test
-//    void shouldReturnSubstrateWhenFoundById() {
-//
-//        // Given
-//        Long substrateId = 1L;
-//        Substrate substrate = new Substrate();
-//        substrate.setSubstrateId(substrateId);
-//
-//        // When
-//        when(substrateRepository.findById(substrateId)).thenReturn(Optional.of(substrate));
-//        Optional<Substrate> result = substrateServiceImpl.getSubstrateById(substrateId);
-//
-//        // Then
-//        assertTrue(result.isPresent());
-//        assertEquals(substrateId, result.get().getSubstrateId());
-//    }
-//
-//    @Test
-//    void shouldThrowExceptionWhenSubstrateNotFound() {
-//        // Given
-//        Long substrateId = 1L;
-//        when(substrateRepository.findById(substrateId)).thenReturn(Optional.empty());
-//
-////         When & Then
-//        assertThrows(ResourceNotFoundException.class, () -> substrateServiceImpl.getSubstrateById(substrateId));
-//    }
-//}
