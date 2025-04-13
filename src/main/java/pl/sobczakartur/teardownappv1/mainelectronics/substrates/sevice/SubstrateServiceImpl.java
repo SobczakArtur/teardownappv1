@@ -31,12 +31,6 @@ public class SubstrateServiceImpl implements SubstrateService {
         public Optional<Substrate> getSubstrateById(Long substrateId) {
             return Optional.of(substrateRepository.findById(substrateId)
                     .orElseThrow(() -> new ResourceNotFoundException("Substrate not found with ID: " + substrateId)));
-//            Optional<Substrate> optionalSubstrate = substrateRepository.findById(substrateId);
-//            if (optionalSubstrate.isPresent()) {
-//                return optionalSubstrate;
-//            } else {
-//                throw new ResourceNotFoundException("Substrate not found with ID: " + substrateId);
-//            }
         }
 
         @Override
@@ -59,8 +53,8 @@ public class SubstrateServiceImpl implements SubstrateService {
         @Override
         public Optional<Substrate> partiallyUpdatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
 
-            return substrateRepository.findById(substrateId).map(existingSubstrate -> {
-
+            return substrateRepository.findById(substrateId)
+                    .map(existingSubstrate -> {
                 if (substrateToUpdate.getAssemblyName() != null) {
                     existingSubstrate.setAssemblyName(substrateToUpdate.getAssemblyName());
                 }

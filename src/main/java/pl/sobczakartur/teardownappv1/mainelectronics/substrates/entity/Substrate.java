@@ -8,6 +8,8 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.SubstrateCo
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -73,6 +75,11 @@ public class Substrate {
 //    @Column(precision = 10, scale = 2)
     @PositiveOrZero
     private Double testCost;
+
+
+
+    @OneToMany(mappedBy = "substrate", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AssemblyBlocks> assemblyBlocks = new ArrayList<>();
 
 
     @PrePersist
