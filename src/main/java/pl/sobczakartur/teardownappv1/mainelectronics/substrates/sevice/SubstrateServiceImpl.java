@@ -35,19 +35,22 @@ public class SubstrateServiceImpl implements SubstrateService {
 
         @Override
         public Optional<Substrate> addSubstrate(Substrate substrate) {
+                substrate.getAssemblyBlocks()
+                        .forEach(block -> block.setSubstrate(substrate));
             return Optional.of(substrateRepository.save(substrate));
         }
 
 
         @Override
         public Optional<Substrate> updatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
-
                 Optional<Substrate> substrate = getSubstrateById(substrateId);
                 if (substrate.isPresent()){
-                    Substrate updated = substrateRepository.save(substrateToUpdate);
-                    return Optional.of(updated);
+                    substrateToUpdate.getAssemblyBlocks()
+                            .forEach(block -> block.setSubstrate(substrateToUpdate));
+
+                    return Optional.of(substrateRepository.save(substrateToUpdate));
             }
-            return Optional.empty();
+                return Optional.empty();
         }
 
         @Override
@@ -89,6 +92,13 @@ public class SubstrateServiceImpl implements SubstrateService {
                 if (substrateToUpdate.getWeight() != null) {
                     existingSubstrate.setWeight(substrateToUpdate.getWeight());
                 }
+
+                if (substrateToUpdate.getAssemblyBlocks() != null) {
+                    substrateToUpdate.getAssemblyBlocks()
+                            .forEach(block -> block.setSubstrate(existingSubstrate));
+                    existingSubstrate.setAssemblyBlocks(substrateToUpdate.getAssemblyBlocks());
+                }
+
 
                 return substrateRepository.save(existingSubstrate);
             });
