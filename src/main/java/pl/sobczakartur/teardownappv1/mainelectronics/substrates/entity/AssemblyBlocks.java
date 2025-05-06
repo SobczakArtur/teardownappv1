@@ -6,8 +6,6 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.Functional
 
 @Data
 @Builder
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -39,7 +37,7 @@ public class AssemblyBlocks {
         }
     }
 
-    public void changeFieldName() {
+    public void syncAssemblyNameWithSubstrate() {
         updateAssemblyName();
     }
 }

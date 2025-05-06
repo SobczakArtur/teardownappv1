@@ -2,10 +2,12 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyBlocks;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.ResourceNotFoundException;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,12 +95,40 @@ public class SubstrateServiceImpl implements SubstrateService {
                     existingSubstrate.setWeight(substrateToUpdate.getWeight());
                 }
 
-                if (substrateToUpdate.getAssemblyBlocks() != null) {
-                    substrateToUpdate.getAssemblyBlocks()
-                            .forEach(block -> block.setSubstrate(existingSubstrate));
-                    existingSubstrate.setAssemblyBlocks(substrateToUpdate.getAssemblyBlocks());
-                }
+//                if (substrateToUpdate.getAssemblyBlocks() != null) {
+//                    substrateToUpdate.getAssemblyBlocks()
+//                            .forEach(block -> {
+//                                block.setSubstrate(substrateToUpdate);
+//                                block.syncAssemblyNameWithSubstrate();
+//                                if (block.getFunctionalBlock() != null) {
+//                                    block.setFunctionalBlock(substrateToUpdate.getAssemblyBlocks().getFirst().getFunctionalBlock());
+//                                }
+//                            });
+//
+//                    existingSubstrate.setAssemblyBlocks(substrateToUpdate.getAssemblyBlocks());
+//                }
 
+                if (substrateToUpdate.getAssemblyBlocks() != null) {
+                    List<AssemblyBlocks> updatedBlocks = new ArrayList<>();
+
+                    for (AssemblyBlocks incomingBlock : substrateToUpdate.getAssemblyBlocks()) {
+                        AssemblyBlocks existingBlock = existingSubstrate.getAssemblyBlocks().stream()
+                                .filter(b -> b.getAssemblyBlocksId() != null && b.getAssemblyBlocksId().equals(incomingBlock.getAssemblyBlocksId()))
+                                .findFirst()
+                                .orElse(incomingBlock);
+
+                        existingBlock.setSubstrate(existingSubstrate);
+                        existingBlock.syncAssemblyNameWithSubstrate();
+
+                        if (incomingBlock.getFunctionalBlock() != null) {
+                            existingBlock.setFunctionalBlock(incomingBlock.getFunctionalBlock());
+                        }
+
+                        updatedBlocks.add(existingBlock);
+                    }
+
+                    existingSubstrate.setAssemblyBlocks(updatedBlocks);
+                }
 
                 return substrateRepository.save(existingSubstrate);
             });
