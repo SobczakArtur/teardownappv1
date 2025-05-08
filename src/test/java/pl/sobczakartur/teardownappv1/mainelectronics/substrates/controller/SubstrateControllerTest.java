@@ -33,7 +33,7 @@ public class SubstrateControllerTest {
 
     @Test
     void shouldReturnAllSubstrates() throws Exception {
-//        List<Substrate> substrates = List.of(new Substrate(1L, "Substrate A"), new Substrate(2L, "Substrate B"));
+
         List<Substrate> substrates = List.of(Substrate.builder()
                                                     .substrateId(1L)
                                                     .assemblyName("Substrate A")

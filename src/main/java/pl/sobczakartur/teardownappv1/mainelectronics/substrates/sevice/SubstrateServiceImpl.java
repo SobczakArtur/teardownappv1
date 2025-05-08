@@ -37,23 +37,40 @@ public class SubstrateServiceImpl implements SubstrateService {
 
         @Override
         public Optional<Substrate> addSubstrate(Substrate substrate) {
-                substrate.getAssemblyBlocks()
-                        .forEach(block -> block.setSubstrate(substrate));
+                if(substrate.getAssemblyBlocks() != null){
+                    substrate.getAssemblyBlocks()
+                            .forEach(block -> block.setSubstrate(substrate));}
             return Optional.of(substrateRepository.save(substrate));
         }
 
 
+//        @Override
+//        public Optional<Substrate> updatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
+//                Optional<Substrate> substrate = getSubstrateById(substrateId);
+//                if (substrate.isPresent()){
+//                    substrateToUpdate.getAssemblyBlocks()
+//                            .forEach(block -> block.setSubstrate(substrateToUpdate));
+//
+//                    return Optional.of(substrateRepository.save(substrateToUpdate));
+//            }
+//                return Optional.empty();
+//        }
+
         @Override
         public Optional<Substrate> updatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
-                Optional<Substrate> substrate = getSubstrateById(substrateId);
-                if (substrate.isPresent()){
-                    substrateToUpdate.getAssemblyBlocks()
-                            .forEach(block -> block.setSubstrate(substrateToUpdate));
+            return substrateRepository.findById(substrateId)
+                    .map(existingSubstrate -> {
+                        substrateToUpdate.setSubstrateId(substrateId);
 
-                    return Optional.of(substrateRepository.save(substrateToUpdate));
-            }
-                return Optional.empty();
+                        if (substrateToUpdate.getAssemblyBlocks() != null) {
+                            substrateToUpdate.getAssemblyBlocks()
+                                    .forEach(block -> block.setSubstrate(substrateToUpdate));
+                        }
+
+                        return substrateRepository.save(substrateToUpdate);
+                    });
         }
+        
 
         @Override
         public Optional<Substrate> partiallyUpdatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
@@ -113,7 +130,7 @@ public class SubstrateServiceImpl implements SubstrateService {
 
                     for (AssemblyBlocks incomingBlock : substrateToUpdate.getAssemblyBlocks()) {
                         AssemblyBlocks existingBlock = existingSubstrate.getAssemblyBlocks().stream()
-                                .filter(b -> b.getAssemblyBlocksId() != null && b.getAssemblyBlocksId().equals(incomingBlock.getAssemblyBlocksId()))
+                                .filter(block -> block.getAssemblyBlocksId() != null && block.getAssemblyBlocksId().equals(incomingBlock.getAssemblyBlocksId()))
                                 .findFirst()
                                 .orElse(incomingBlock);
 
