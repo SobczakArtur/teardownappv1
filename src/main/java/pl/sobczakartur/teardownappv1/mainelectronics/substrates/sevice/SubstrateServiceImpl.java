@@ -70,7 +70,7 @@ public class SubstrateServiceImpl implements SubstrateService {
                         return substrateRepository.save(substrateToUpdate);
                     });
         }
-        
+
 
         @Override
         public Optional<Substrate> partiallyUpdatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
@@ -111,19 +111,6 @@ public class SubstrateServiceImpl implements SubstrateService {
                 if (substrateToUpdate.getWeight() != null) {
                     existingSubstrate.setWeight(substrateToUpdate.getWeight());
                 }
-
-//                if (substrateToUpdate.getAssemblyBlocks() != null) {
-//                    substrateToUpdate.getAssemblyBlocks()
-//                            .forEach(block -> {
-//                                block.setSubstrate(substrateToUpdate);
-//                                block.syncAssemblyNameWithSubstrate();
-//                                if (block.getFunctionalBlock() != null) {
-//                                    block.setFunctionalBlock(substrateToUpdate.getAssemblyBlocks().getFirst().getFunctionalBlock());
-//                                }
-//                            });
-//
-//                    existingSubstrate.setAssemblyBlocks(substrateToUpdate.getAssemblyBlocks());
-//                }
 
                 if (substrateToUpdate.getAssemblyBlocks() != null) {
                     List<AssemblyBlocks> updatedBlocks = new ArrayList<>();
