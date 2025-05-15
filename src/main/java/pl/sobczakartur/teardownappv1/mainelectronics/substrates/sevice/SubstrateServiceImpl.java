@@ -131,7 +131,9 @@ public class SubstrateServiceImpl implements SubstrateService {
                         updatedBlocks.add(existingBlock);
                     }
 
-                    existingSubstrate.setAssemblyBlocks(updatedBlocks);
+//                    existingSubstrate.setAssemblyBlocks(updatedBlocks);
+                    existingSubstrate.getAssemblyBlocks().clear();
+                    existingSubstrate.getAssemblyBlocks().addAll(updatedBlocks);
                 }
 
                 return substrateRepository.save(existingSubstrate);

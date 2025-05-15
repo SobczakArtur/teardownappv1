@@ -1,7 +1,11 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.FunctionalBlock;
 
 @Data
@@ -27,6 +31,7 @@ public class AssemblyBlocks {
 
     @ManyToOne
     @JoinColumn(name = "substrate_id")
+    @JsonBackReference
     private Substrate substrate;
 
     @PrePersist

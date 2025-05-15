@@ -1,5 +1,6 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
@@ -77,6 +78,7 @@ public class Substrate {
 
 
     @OneToMany(mappedBy = "substrate", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<AssemblyBlocks> assemblyBlocks = new ArrayList<>();
 
 
