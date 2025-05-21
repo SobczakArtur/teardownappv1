@@ -44,18 +44,6 @@ public class SubstrateServiceImpl implements SubstrateService {
         }
 
 
-//        @Override
-//        public Optional<Substrate> updatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
-//                Optional<Substrate> substrate = getSubstrateById(substrateId);
-//                if (substrate.isPresent()){
-//                    substrateToUpdate.getAssemblyBlocks()
-//                            .forEach(block -> block.setSubstrate(substrateToUpdate));
-//
-//                    return Optional.of(substrateRepository.save(substrateToUpdate));
-//            }
-//                return Optional.empty();
-//        }
-
         @Override
         public Optional<Substrate> updatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
             return substrateRepository.findById(substrateId)

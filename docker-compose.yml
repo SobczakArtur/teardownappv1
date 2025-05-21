@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  teardown-app:
+    build: .
+    container_name: teardownappv1
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/teardownlibrary?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: appuser
+      SPRING_DATASOURCE_PASSWORD: apphaslo123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    depends_on:
+      - mysql-db
+
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_DATABASE: teardownlibrary
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apphaslo123
+      MYSQL_ROOT_PASSWORD: apphaslo123
+    ports: []
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
