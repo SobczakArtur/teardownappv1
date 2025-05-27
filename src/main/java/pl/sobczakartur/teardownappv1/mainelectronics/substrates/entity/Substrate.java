@@ -2,13 +2,17 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.SubstrateCost;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,13 +71,13 @@ public class Substrate {
     @PositiveOrZero
     private Double weight;
 
-//    @Column(precision = 10, scale = 2)
+    @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     @PositiveOrZero
-    private Double substrateCost;
+    private BigDecimal substrateCost;
 
-//    @Column(precision = 10, scale = 2)
+    @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     @PositiveOrZero
-    private Double testCost;
+    private BigDecimal testCost;
 
 
 
@@ -92,8 +96,8 @@ public class Substrate {
 
             if (technology != null && complexity != null && areaValue != null) {
                 SubstrateCost substrateCostObject = new SubstrateCost(technology, complexity, areaValue);
-                this.substrateCost = substrateCostObject.substrateCost();
-                this.testCost = substrateCostObject.testCost();
+                this.substrateCost = substrateCostObject.getSubstrateCost();
+                this.testCost = substrateCostObject.getTestCost();
                 }
         }
     }

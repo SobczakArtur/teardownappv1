@@ -26,7 +26,8 @@ services:
       MYSQL_USER: appuser
       MYSQL_PASSWORD: apphaslo123
       MYSQL_ROOT_PASSWORD: apphaslo123
-    ports: []
+    ports:
+      - "3307:3306"
 
     volumes:
       - mysql-data:/var/lib/mysql
