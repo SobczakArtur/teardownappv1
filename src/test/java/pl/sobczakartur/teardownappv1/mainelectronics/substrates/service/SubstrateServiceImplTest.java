@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyBlocks;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.ResourceNotFoundException;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
@@ -70,7 +71,7 @@ public class SubstrateServiceImplTest {
 
     @Test
     void shouldAddSubstrate() {
-//        Substrate substrate = new Substrate(1L, "New Substrate");
+
         Substrate substrate = Substrate.builder()
                                         .substrateId(1L)
                                         .assemblyName("New Substrate")
@@ -86,8 +87,7 @@ public class SubstrateServiceImplTest {
 
     @Test
     void shouldUpdateSubstrate() {
-//        Substrate existingSubstrate = new Substrate(1L, "Old Substrate");
-//        Substrate updatedSubstrate = new Substrate(1L, "Updated Substrate");
+
         Substrate existingSubstrate = Substrate.builder()
                                             .substrateId(1L)
                                             .assemblyName("Old Substrate")
@@ -96,6 +96,10 @@ public class SubstrateServiceImplTest {
         Substrate updatedSubstrate = Substrate.builder()
                                             .substrateId(1L)
                                             .assemblyName("Updated Substrate")
+                                            .assemblyBlocks(List.of(
+                                                    AssemblyBlocks.builder().build(),
+                                                    AssemblyBlocks.builder().build()
+                                            ))
                                             .build();
 
         when(substrateRepository.findById(1L)).thenReturn(Optional.of(existingSubstrate));
@@ -105,16 +109,19 @@ public class SubstrateServiceImplTest {
 
         assertTrue(result.isPresent());
         assertEquals("Updated Substrate", result.get().getAssemblyName());
+        assertNotNull(result.get().getAssemblyBlocks());
+        result.get().getAssemblyBlocks()
+                .forEach(block -> assertEquals(updatedSubstrate, block.getSubstrate())
+        );
     }
 
     @Test
     void shouldPartiallyUpdateSubstrate() {
-//        Substrate existingSubstrate = new Substrate(1L, "Old Substrate");
-//        Substrate updatedSubstrate = new Substrate(1L, "Partially Updated Substrate");
 
         Substrate existingSubstrate = Substrate.builder()
                                             .substrateId(1L)
                                             .assemblyName("Old Substrate")
+                                            .substrateMarking("Old Marking")
                                             .build();
 
         Substrate updatedSubstrate = Substrate.builder()
@@ -123,17 +130,18 @@ public class SubstrateServiceImplTest {
                                             .build();
 
         when(substrateRepository.findById(1L)).thenReturn(Optional.of(existingSubstrate));
-        when(substrateRepository.save(existingSubstrate)).thenReturn(updatedSubstrate);
+        when(substrateRepository.save(existingSubstrate)).thenReturn(existingSubstrate);
 
         Optional<Substrate> result = substrateServiceImpl.partiallyUpdatedSubstrate(updatedSubstrate, 1L);
 
         assertTrue(result.isPresent());
         assertEquals("Partially Updated Substrate", result.get().getAssemblyName());
+        assertEquals("Old Marking", result.get().getSubstrateMarking());
     }
 
     @Test
     void shouldDeleteSubstrate() {
-//        Substrate substrate = new Substrate(1L, "Deleted Substrate");
+
         Substrate substrate = Substrate.builder()
                                     .substrateId(1L)
                                     .assemblyName("Deleted Substrate")

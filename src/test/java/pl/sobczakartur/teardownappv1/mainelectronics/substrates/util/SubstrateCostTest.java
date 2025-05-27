@@ -8,6 +8,8 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Area;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -31,7 +33,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(NullPointerException.class, substrateCost::substrateCost);
+        assertThrows(NullPointerException.class, substrateCost::getSubstrateCost);
     }
 
     @Test
@@ -46,7 +48,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::substrateCost);
+        assertThrows(ArithmeticException.class, substrateCost::getSubstrateCost);
     }
 
     @Test
@@ -61,7 +63,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::substrateCost);
+        assertThrows(ArithmeticException.class, substrateCost::getSubstrateCost);
     }
 
 
@@ -76,10 +78,10 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //when
-        Double costResult = substrateCost.substrateCost();
+        BigDecimal costResult = substrateCost.getSubstrateCost();
 
         //then
-        assertEquals(costResult, 1.5047517730496456);
+        assertEquals(new BigDecimal(String.valueOf(costResult)), new BigDecimal("1.5047517730496456"));
     }
 
     @Test
@@ -94,7 +96,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(NullPointerException.class, substrateCost::testCost);
+        assertThrows(NullPointerException.class, substrateCost::getTestCost);
     }
 
     @Test
@@ -109,7 +111,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::testCost);
+        assertThrows(ArithmeticException.class, substrateCost::getTestCost);
     }
 
     @Test
@@ -124,7 +126,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::testCost);
+        assertThrows(ArithmeticException.class, substrateCost::getTestCost);
     }
 
 
@@ -138,10 +140,10 @@ public class SubstrateCostTest {
 
         //when
         substrateCost = new SubstrateCost(technology, complexity, area);
-        Double costResult = substrateCost.testCost();
+        BigDecimal costResult = substrateCost.getTestCost();
 
         //then
-        assertEquals(costResult, 0.511);
+        assertEquals(new BigDecimal(String.valueOf(costResult)), new BigDecimal("0.511"));
     }
 
 

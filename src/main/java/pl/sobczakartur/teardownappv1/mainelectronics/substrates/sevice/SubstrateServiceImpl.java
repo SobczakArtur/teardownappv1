@@ -2,10 +2,12 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyBlocks;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.ResourceNotFoundException;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,36 +33,38 @@ public class SubstrateServiceImpl implements SubstrateService {
         public Optional<Substrate> getSubstrateById(Long substrateId) {
             return Optional.of(substrateRepository.findById(substrateId)
                     .orElseThrow(() -> new ResourceNotFoundException("Substrate not found with ID: " + substrateId)));
-//            Optional<Substrate> optionalSubstrate = substrateRepository.findById(substrateId);
-//            if (optionalSubstrate.isPresent()) {
-//                return optionalSubstrate;
-//            } else {
-//                throw new ResourceNotFoundException("Substrate not found with ID: " + substrateId);
-//            }
         }
 
         @Override
         public Optional<Substrate> addSubstrate(Substrate substrate) {
+                if(substrate.getAssemblyBlocks() != null){
+                    substrate.getAssemblyBlocks()
+                            .forEach(block -> block.setSubstrate(substrate));}
             return Optional.of(substrateRepository.save(substrate));
         }
 
 
         @Override
         public Optional<Substrate> updatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
+            return substrateRepository.findById(substrateId)
+                    .map(existingSubstrate -> {
+                        substrateToUpdate.setSubstrateId(substrateId);
 
-                Optional<Substrate> substrate = getSubstrateById(substrateId);
-                if (substrate.isPresent()){
-                    Substrate updated = substrateRepository.save(substrateToUpdate);
-                    return Optional.of(updated);
-            }
-            return Optional.empty();
+                        if (substrateToUpdate.getAssemblyBlocks() != null) {
+                            substrateToUpdate.getAssemblyBlocks()
+                                    .forEach(block -> block.setSubstrate(substrateToUpdate));
+                        }
+
+                        return substrateRepository.save(substrateToUpdate);
+                    });
         }
+
 
         @Override
         public Optional<Substrate> partiallyUpdatedSubstrate(Substrate substrateToUpdate, Long substrateId) {
 
-            return substrateRepository.findById(substrateId).map(existingSubstrate -> {
-
+            return substrateRepository.findById(substrateId)
+                    .map(existingSubstrate -> {
                 if (substrateToUpdate.getAssemblyName() != null) {
                     existingSubstrate.setAssemblyName(substrateToUpdate.getAssemblyName());
                 }
@@ -94,6 +98,30 @@ public class SubstrateServiceImpl implements SubstrateService {
 
                 if (substrateToUpdate.getWeight() != null) {
                     existingSubstrate.setWeight(substrateToUpdate.getWeight());
+                }
+
+                if (substrateToUpdate.getAssemblyBlocks() != null) {
+                    List<AssemblyBlocks> updatedBlocks = new ArrayList<>();
+
+                    for (AssemblyBlocks incomingBlock : substrateToUpdate.getAssemblyBlocks()) {
+                        AssemblyBlocks existingBlock = existingSubstrate.getAssemblyBlocks().stream()
+                                .filter(block -> block.getAssemblyBlocksId() != null && block.getAssemblyBlocksId().equals(incomingBlock.getAssemblyBlocksId()))
+                                .findFirst()
+                                .orElse(incomingBlock);
+
+                        existingBlock.setSubstrate(existingSubstrate);
+                        existingBlock.syncAssemblyNameWithSubstrate();
+
+                        if (incomingBlock.getFunctionalBlock() != null) {
+                            existingBlock.setFunctionalBlock(incomingBlock.getFunctionalBlock());
+                        }
+
+                        updatedBlocks.add(existingBlock);
+                    }
+
+//                    existingSubstrate.setAssemblyBlocks(updatedBlocks);
+                    existingSubstrate.getAssemblyBlocks().clear();
+                    existingSubstrate.getAssemblyBlocks().addAll(updatedBlocks);
                 }
 
                 return substrateRepository.save(existingSubstrate);
