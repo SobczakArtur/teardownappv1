@@ -17,6 +17,7 @@ A simple program for adding to the database a smartphone components with specifi
 + Lombok
 + Git/GitHub 
 + CRUD, REST, JPA, MVC
++ Docker
 
 Coverage with unit tests  
 MockMvc was used to test the controller
