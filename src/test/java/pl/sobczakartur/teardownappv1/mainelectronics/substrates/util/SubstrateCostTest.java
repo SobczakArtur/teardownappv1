@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Area;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.InvalidSubstrateParametersException;
 
 import java.math.BigDecimal;
 
@@ -48,7 +49,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::getSubstrateCost);
+        assertThrows(InvalidSubstrateParametersException.class, substrateCost::getSubstrateCost);
     }
 
     @Test
@@ -63,7 +64,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::getSubstrateCost);
+        assertThrows(InvalidSubstrateParametersException.class, substrateCost::getSubstrateCost);
     }
 
 
@@ -81,7 +82,7 @@ public class SubstrateCostTest {
         BigDecimal costResult = substrateCost.getSubstrateCost();
 
         //then
-        assertEquals(new BigDecimal(String.valueOf(costResult)), new BigDecimal("1.5047517730496456"));
+        assertEquals(new BigDecimal(String.valueOf(costResult)), new BigDecimal("1.504751773049645390070921985815603"));
     }
 
     @Test
@@ -111,7 +112,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::getTestCost);
+        assertThrows(InvalidSubstrateParametersException.class, substrateCost::getTestCost);
     }
 
     @Test
@@ -126,7 +127,7 @@ public class SubstrateCostTest {
         substrateCost = new SubstrateCost(technology, complexity, area);
 
         //then
-        assertThrows(ArithmeticException.class, substrateCost::getTestCost);
+        assertThrows(InvalidSubstrateParametersException.class, substrateCost::getTestCost);
     }
 
 
