@@ -45,8 +45,8 @@ Make sure you have installed:
 
 ### Clone the repository
 
-git clone https://github.com/SobczakArtur/teardownappv1.git
-cd teardownappv1
+git clone https://github.com/SobczakArtur/teardownappv1.git  
+cd teardownappv1  
 
 ### Build the project
 
@@ -54,16 +54,16 @@ mvn clean install
 
 ### Run with Docker Compose
 
-docker-compose up --build
-The application will be available at: http://localhost:8080
+docker-compose up --build  
+The application will be available at: http://localhost:8080  
 
-MySQL will be running on: localhost:3306
+MySQL will be running on: localhost:3306  
 Use MySQL Workbench to connect with the following credentials:
 
 - Host: localhost
 - Port: 3306
 - User: appuser
-- Password: apphaslo123
+- Password: apphaslo123  
 
 
 
