@@ -60,10 +60,10 @@ The application will be available at: http://localhost:8080
 MySQL will be running on: localhost:3306
 Use MySQL Workbench to connect with the following credentials:
 
-Host: localhost
-Port: 3306
-User: appuser
-Password: apphaslo123
+- Host: localhost
+- Port: 3306
+- User: appuser
+- Password: apphaslo123
 
 
 
