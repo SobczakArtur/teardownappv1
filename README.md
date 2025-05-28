@@ -21,7 +21,7 @@
 
 ---
 
-## 🧩 Features
+## Features
 
 - Full CRUD functionality for smartphone teardown components
 - One-to-Many and Many-to-One relationships between entities
