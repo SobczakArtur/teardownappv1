@@ -2,6 +2,7 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,8 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "secret-key-123456";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()

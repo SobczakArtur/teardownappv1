@@ -2,16 +2,17 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.SubstrateCost;
 
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,19 +30,19 @@ public class Substrate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long substrateId;
 
-//    @NotNull
+    @NotNull
     @Column(length = 255)
     private String assemblyName;
 
-//    @NotNull
+    @NotNull
     @Column(length = 255)
     private String substrateMarking;
 
-//    @NotNull
+    @NotNull
     @Column(length = 255)
     private String manufacturer;
 
-//    @NotNull
+    @NotNull
     @Column(length = 255)
     @Enumerated(EnumType.STRING)
     private TechnologyEnum technology; //TechnologyEnum
@@ -52,7 +53,7 @@ public class Substrate {
     @Column(length = 255)
     private String technologyCoreMaterial;  //TechnologyEnum
 
-//    @NotNull
+    @NotNull
     @Embedded
     @Positive
     private Area areaValue;

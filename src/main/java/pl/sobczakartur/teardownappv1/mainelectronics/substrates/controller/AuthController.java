@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.CustomUserDetailsService;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.JwtService;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.AuthRequest;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AuthRequest;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates.util;
+package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 
 import lombok.Getter;
