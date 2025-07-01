@@ -2,13 +2,10 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.util.SubstrateCost;
@@ -30,19 +27,19 @@ public class Substrate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long substrateId;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     private String assemblyName;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     private String substrateMarking;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     private String manufacturer;
 
-    @NotNull
+//    @NotNull
     @Column(length = 255)
     @Enumerated(EnumType.STRING)
     private TechnologyEnum technology; //TechnologyEnum
@@ -53,31 +50,31 @@ public class Substrate {
     @Column(length = 255)
     private String technologyCoreMaterial;  //TechnologyEnum
 
-    @NotNull
+//    @NotNull
     @Embedded
-    @Positive
+//    @Positive
     private Area areaValue;
 
-    @Positive
+//    @Positive
     private Integer technologyMetalLs;  //TechnologyEnum
 
 //    @NotNull
-    @Positive
+//    @Positive
     @Enumerated(EnumType.STRING)
     private ComplexityEnum complexity;  //ComplexityEnum
 
-    @Positive
-    private Double thickness;
+//    @Positive
+    private Double thickness = 1.0;
 
-    @PositiveOrZero
-    private Double weight;
+//    @PositiveOrZero
+    private Double weight = 0.0;
 
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
-    @PositiveOrZero
+//    @PositiveOrZero
     private BigDecimal substrateCost;
 
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
-    @PositiveOrZero
+//    @PositiveOrZero
     private BigDecimal testCost;
 
 

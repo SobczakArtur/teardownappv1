@@ -9,7 +9,6 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyB
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.ResourceNotFoundException;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateServiceImpl;
 
 import java.util.List;
 import java.util.Optional;

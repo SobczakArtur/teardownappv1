@@ -7,9 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateService;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.SubstrateService;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,12 +39,20 @@ public class SubstrateController {
         }
 
         @PostMapping
-        public ResponseEntity<Substrate> addSubstrate(@Valid @RequestBody Substrate substrate){
+        public ResponseEntity<Substrate> addSubstrate(@RequestBody Substrate substrate){
             Optional<Substrate> substrateAdded = substrateService.addSubstrate(substrate);
             return substrateAdded
                     .map(value -> new ResponseEntity<>(value, HttpStatus.CREATED))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
         }
+
+//    @PostMapping
+//    public ResponseEntity<Substrate> addSubstrate(@Valid @RequestBody Substrate substrate){
+//        Optional<Substrate> substrateAdded = substrateService.addSubstrate(substrate);
+//        return substrateAdded
+//                .map(value -> new ResponseEntity<>(value, HttpStatus.CREATED))
+//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+//    }
 
         @PutMapping("/{id}")
         public ResponseEntity<Substrate> updateSubstrate(@RequestBody Substrate substrate, @PathVariable("id") Long substrateId) {

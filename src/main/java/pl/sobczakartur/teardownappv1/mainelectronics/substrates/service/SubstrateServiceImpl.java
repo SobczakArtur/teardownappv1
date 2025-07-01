@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
+package pl.sobczakartur.teardownappv1.mainelectronics.substrates.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

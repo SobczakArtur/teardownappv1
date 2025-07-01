@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice;
+package pl.sobczakartur.teardownappv1.mainelectronics.substrates.service;
 
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 

@@ -3,7 +3,6 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.util;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Area;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
@@ -15,10 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-
 public class SubstrateCostTest {
 
-    @Autowired
+
     private SubstrateCost substrateCost;
 
 

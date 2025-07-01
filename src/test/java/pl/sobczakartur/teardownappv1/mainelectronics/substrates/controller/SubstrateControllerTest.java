@@ -7,7 +7,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.sevice.SubstrateService;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.SubstrateService;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +18,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @WebMvcTest(SubstrateController.class)
 public class SubstrateControllerTest {
@@ -176,4 +177,5 @@ public class SubstrateControllerTest {
         mockMvc.perform(delete(API_BASE_URL + "/999"))
                 .andExpect(status().isNotFound());
     }
+
 }
