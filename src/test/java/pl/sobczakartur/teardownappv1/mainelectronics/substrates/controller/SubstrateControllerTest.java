@@ -4,10 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.SubstrateService;
+import pl.sobczakartur.teardownappv1.security.config.TestSecurityConfig;
+import pl.sobczakartur.teardownappv1.security.jwt.JwtAuthFilter;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +23,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@Import(TestSecurityConfig.class)
 @WebMvcTest(SubstrateController.class)
 public class SubstrateControllerTest {
 
-    private final String API_BASE_URL = "/api/substrate";
+    private static final String API_BASE_URL = "/api/substrate";
 
     @Autowired
     private MockMvc mockMvc;
@@ -31,8 +35,12 @@ public class SubstrateControllerTest {
     @MockBean(name = "substrateServiceImpl")
     private SubstrateService substrateService;
 
+    @MockBean
+    private JwtAuthFilter jwtAuthFilter;
+
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldReturnAllSubstrates() throws Exception {
 
         List<Substrate> substrates = List.of(Substrate.builder()
@@ -54,6 +62,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldReturnSubstrateById() throws Exception {
 
         Substrate substrate = Substrate.builder()
@@ -70,6 +79,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldReturn404WhenSubstrateNotFound() throws Exception {
         when(substrateService.getSubstrateById(999L)).thenReturn(Optional.empty());
 
@@ -78,6 +88,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldAddSubstrate() throws Exception {
 //        Substrate substrate = new Substrate(1L, "New Substrate");
         Substrate substrate = Substrate.builder()
@@ -95,6 +106,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldReturn500WhenAddSubstrateFails() throws Exception {
         when(substrateService.addSubstrate(any())).thenReturn(Optional.empty());
 
@@ -105,6 +117,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldUpdateSubstrate() throws Exception {
 //        Substrate updatedSubstrate = new Substrate(1L, "Updated Substrate");
         Substrate updatedSubstrate = Substrate.builder()
@@ -121,6 +134,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldReturn404WhenUpdateFails() throws Exception {
         when(substrateService.updatedSubstrate(any(), eq(999L))).thenReturn(Optional.empty());
 
@@ -131,6 +145,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldPartiallyUpdateSubstrate() throws Exception {
 //        Substrate updatedSubstrate = new Substrate(1L, "Partially Updated Substrate");
         Substrate updatedSubstrate = Substrate.builder()
@@ -147,6 +162,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldReturn404WhenPartialUpdateFails() throws Exception {
         when(substrateService.partiallyUpdatedSubstrate(any(), eq(999L))).thenReturn(Optional.empty());
 
@@ -157,6 +173,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldDeleteSubstrate() throws Exception {
 //        Substrate deletedSubstrate = new Substrate(1L, "Deleted Substrate");
         Substrate deletedSubstrate = Substrate.builder()
@@ -171,6 +188,7 @@ public class SubstrateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin")
     void shouldReturn404WhenDeleteFails() throws Exception {
         when(substrateService.removeSubstrateById(999L)).thenReturn(Optional.empty());
 

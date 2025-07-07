@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity;
+package pl.sobczakartur.teardownappv1.security.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

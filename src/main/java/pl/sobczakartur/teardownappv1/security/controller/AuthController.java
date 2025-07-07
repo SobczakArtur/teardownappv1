@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates.controller;
+package pl.sobczakartur.teardownappv1.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AuthRequest;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.CustomUserDetailsService;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.JwtService;
+import pl.sobczakartur.teardownappv1.security.user.AuthRequest;
+import pl.sobczakartur.teardownappv1.security.user.CustomUserDetailsService;
+import pl.sobczakartur.teardownappv1.security.jwt.JwtService;
 
 import java.util.Map;
 

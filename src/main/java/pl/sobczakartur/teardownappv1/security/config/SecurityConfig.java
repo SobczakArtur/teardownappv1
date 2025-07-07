@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates.util;
+package pl.sobczakartur.teardownappv1.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.CustomUserDetailsService;
+import pl.sobczakartur.teardownappv1.security.user.CustomUserDetailsService;
+import pl.sobczakartur.teardownappv1.security.jwt.JwtAuthFilter;
 
 @Configuration
 @EnableWebSecurity

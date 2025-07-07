@@ -1,4 +1,4 @@
-package pl.sobczakartur.teardownappv1.mainelectronics.substrates.service;
+package pl.sobczakartur.teardownappv1.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
