@@ -24,6 +24,11 @@ public class SubstrateController {
             this.substrateService = substrateService;
         }
 
+//    @Autowired
+//    public SubstrateController(SubstrateService substrateService) {
+//        this.substrateService = substrateService;
+//    }
+
 
         @GetMapping
         public ResponseEntity<List<Substrate>> getAllSubstrate() {

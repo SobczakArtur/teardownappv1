@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = "pl.sobczakartur.teardownappv1")
-@EnableJpaRepositories(basePackages = "pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository")
-@EntityScan(basePackages = "pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity")
+@EnableJpaRepositories(basePackages = "pl.sobczakartur.teardownappv1")
+@EntityScan(basePackages = "pl.sobczakartur.teardownappv1")
 public class TeardownV1Application {
 
 	public static void main(String[] args) {

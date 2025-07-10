@@ -2,16 +2,20 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.UserRepository;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.SubstrateService;
-import pl.sobczakartur.teardownappv1.security.config.TestSecurityConfig;
 import pl.sobczakartur.teardownappv1.security.jwt.JwtAuthFilter;
+import pl.sobczakartur.teardownappv1.security.jwt.JwtService;
+import pl.sobczakartur.teardownappv1.security.user.CustomUserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +27,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Import(TestSecurityConfig.class)
-@WebMvcTest(SubstrateController.class)
+//@Import(TestSecurityConfig.class)
+//@WebMvcTest(SubstrateController.class)
+//@ActiveProfiles("test")
+//@ImportAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+//@SpringBootTest(properties = {"debug=true"})
+
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
 public class SubstrateControllerTest {
 
     private static final String API_BASE_URL = "/api/substrate";
@@ -32,11 +44,28 @@ public class SubstrateControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean(name = "substrateServiceImpl")
+    @MockBean(name="substrateServiceImpl")
     private SubstrateService substrateService;
+
+//    @MockBean
+//    private SubstrateService substrateService;
 
     @MockBean
     private JwtAuthFilter jwtAuthFilter;
+
+    @MockBean
+    private JwtService jwtService;
+
+    @MockBean
+    private SubstrateRepository substrateRepository;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
+    private CustomUserDetailsService customUserDetailsService;
+
+
 
 
     @Test

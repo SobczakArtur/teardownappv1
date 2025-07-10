@@ -57,15 +57,15 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>io.jsonwebtoken</groupId>
-				<artifactId>jjwt</artifactId>
-				<version>0.9.1</version>
-			</dependency>
-			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>8.0.33</version>
 <!--				<version>8.0.9-rc</version>-->
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
@@ -73,12 +73,6 @@
 				<version>1.18.30</version>
 				<scope>compile</scope>
 			</dependency>
-<!--			<dependency>-->
-<!--				<groupId>org.hibernate</groupId>-->
-<!--				<artifactId>hibernate-core</artifactId>-->
-<!--				<version>6.6.16.Final</version>-->
-<!--				<type>pom</type>-->
-<!--			</dependency>-->
 			<dependency>
 				<groupId>org.jetbrains</groupId>
 				<artifactId>annotations</artifactId>
@@ -87,6 +81,23 @@
 
 
 			<!--        TEST       -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-api</artifactId>
+				<version>0.11.5</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>0.11.5</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId>
+				<version>0.11.5</version>
+				<scope>runtime</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
