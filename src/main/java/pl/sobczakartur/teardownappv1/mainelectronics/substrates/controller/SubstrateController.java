@@ -1,8 +1,8 @@
 package pl.sobczakartur.teardownappv1.mainelectronics.substrates.controller;
 
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +20,9 @@ public class SubstrateController {
         private final SubstrateService substrateService;
 
         @Autowired
-        public SubstrateController(@Qualifier("substrateServiceImpl") SubstrateService substrateService) {
+        public SubstrateController(SubstrateService substrateService) {
             this.substrateService = substrateService;
         }
-
-//    @Autowired
-//    public SubstrateController(SubstrateService substrateService) {
-//        this.substrateService = substrateService;
-//    }
 
 
         @GetMapping
@@ -44,7 +39,7 @@ public class SubstrateController {
         }
 
         @PostMapping
-        public ResponseEntity<Substrate> addSubstrate(@RequestBody Substrate substrate){
+        public ResponseEntity<Substrate> addSubstrate(@RequestBody @Valid Substrate substrate){
             Optional<Substrate> substrateAdded = substrateService.addSubstrate(substrate);
             return substrateAdded
                     .map(value -> new ResponseEntity<>(value, HttpStatus.CREATED))
@@ -60,7 +55,7 @@ public class SubstrateController {
 //    }
 
         @PutMapping("/{id}")
-        public ResponseEntity<Substrate> updateSubstrate(@RequestBody Substrate substrate, @PathVariable("id") Long substrateId) {
+        public ResponseEntity<Substrate> updateSubstrate(@RequestBody @Valid Substrate substrate, @PathVariable("id") Long substrateId) {
             Optional<Substrate> substrateUpdated = substrateService.updatedSubstrate(substrate, substrateId);
             return substrateUpdated
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -68,7 +63,7 @@ public class SubstrateController {
         }
 
         @PatchMapping("/{id}")
-        public ResponseEntity<Substrate> partiallyUpdatedSubstrate(@RequestBody Substrate substrateUpd, @PathVariable("id") Long substrateId) {
+        public ResponseEntity<Substrate> partiallyUpdatedSubstrate(@RequestBody @Valid Substrate substrateUpd, @PathVariable("id") Long substrateId) {
             Optional<Substrate> substrateUpdated = substrateService.partiallyUpdatedSubstrate(substrateUpd, substrateId);
             return substrateUpdated
                     .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
