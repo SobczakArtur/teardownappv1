@@ -132,7 +132,11 @@ class SubstrateControllerTest {
     void shouldReturn404WhenUpdateFails() throws Exception {
         mockMvc.perform(put(API_BASE_URL + "/999")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"assemblyName\":\"Non-existent\"}"))
+                        .content("{"
+                                + "\"assemblyName\":\"Non-existent\","
+                                + "\"technology\":\"" + TWO_L_C.name() + "\","
+                                + "\"complexity\":\"" + LOW.name() + "\""
+                                + "}"))
                 .andExpect(status().isNotFound());
     }
 
@@ -159,14 +163,18 @@ class SubstrateControllerTest {
     void shouldReturn404WhenPartialUpdateFails() throws Exception {
         mockMvc.perform(patch(API_BASE_URL + "/999")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"assemblyName\":\"Non-existent\"}"))
+                        .content("{"
+                                + "\"assemblyName\":\"Non-existent\","
+                                + "\"technology\":\"" + TWO_L_C.name() + "\","
+                                + "\"complexity\":\"" + LOW.name() + "\""
+                                + "}"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser(username = "admin")
     void shouldDeleteSubstrate() throws Exception {
-//        Substrate saved = substrateRepository.save(Substrate.builder().assemblyName("To Delete").build());
+
         Substrate saved = substrateRepository.save(Substrate.builder().assemblyName("To Delete").substrateMarking("Delete Desc").technology(TWO_L_F).complexity(SIMPLE).build());
 
 
