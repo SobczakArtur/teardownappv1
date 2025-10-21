@@ -3,6 +3,7 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.util;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.test.context.ActiveProfiles;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Area;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.ComplexityEnum;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.TechnologyEnum;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
+@ActiveProfiles("test")
 public class SubstrateCostTest {
 
 

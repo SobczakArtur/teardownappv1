@@ -14,7 +14,7 @@ import pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.Functional
 @AllArgsConstructor
 @Entity
 @Table(name = "assembly_blocks")
-public class AssemblyBlocks {
+public class AssemblyBlock {
 
 
     @Id

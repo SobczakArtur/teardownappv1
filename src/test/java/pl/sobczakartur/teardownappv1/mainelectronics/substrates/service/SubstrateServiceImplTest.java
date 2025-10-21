@@ -5,7 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyBlocks;
+import org.springframework.test.context.ActiveProfiles;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyBlock;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.ResourceNotFoundException;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
@@ -18,6 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class SubstrateServiceImplTest {
 
     @Mock
@@ -96,8 +98,8 @@ public class SubstrateServiceImplTest {
                                             .substrateId(1L)
                                             .assemblyName("Updated Substrate")
                                             .assemblyBlocks(List.of(
-                                                    AssemblyBlocks.builder().build(),
-                                                    AssemblyBlocks.builder().build()
+                                                    AssemblyBlock.builder().build(),
+                                                    AssemblyBlock.builder().build()
                                             ))
                                             .build();
 

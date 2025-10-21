@@ -2,7 +2,7 @@ package pl.sobczakartur.teardownappv1.mainelectronics.substrates.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyBlocks;
+import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.AssemblyBlock;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.exception.ResourceNotFoundException;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
@@ -101,10 +101,10 @@ public class SubstrateServiceImpl implements SubstrateService {
                 }
 
                 if (substrateToUpdate.getAssemblyBlocks() != null) {
-                    List<AssemblyBlocks> updatedBlocks = new ArrayList<>();
+                    List<AssemblyBlock> updatedBlocks = new ArrayList<>();
 
-                    for (AssemblyBlocks incomingBlock : substrateToUpdate.getAssemblyBlocks()) {
-                        AssemblyBlocks existingBlock = existingSubstrate.getAssemblyBlocks().stream()
+                    for (AssemblyBlock incomingBlock : substrateToUpdate.getAssemblyBlocks()) {
+                        AssemblyBlock existingBlock = existingSubstrate.getAssemblyBlocks().stream()
                                 .filter(block -> block.getAssemblyBlocksId() != null && block.getAssemblyBlocksId().equals(incomingBlock.getAssemblyBlocksId()))
                                 .findFirst()
                                 .orElse(incomingBlock);

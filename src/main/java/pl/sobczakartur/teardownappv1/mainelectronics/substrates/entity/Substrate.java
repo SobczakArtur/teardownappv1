@@ -85,7 +85,7 @@ public class Substrate {
 
     @OneToMany(mappedBy = "substrate", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<AssemblyBlocks> assemblyBlocks = new ArrayList<>();
+    private List<AssemblyBlock> assemblyBlocks = new ArrayList<>();
 
 
     @PrePersist
