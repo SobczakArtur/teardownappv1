@@ -7,10 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.UserRepository;
 import pl.sobczakartur.teardownappv1.security.jwt.JwtService;
 import pl.sobczakartur.teardownappv1.security.user.AuthRequest;

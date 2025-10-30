@@ -14,7 +14,7 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: true
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
-      JWT_SECRET: secret-key-123456
+      JWT_SECRET: my-super-secure-secret-key-which-is-at-least-32-bytes-long-12345
     depends_on:
       - mysql-db
 
