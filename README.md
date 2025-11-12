@@ -85,7 +85,7 @@ Example request body:
 
 Authorization: Bearer <your_token_here>
 
-###🧪 Running Tests
+### 🧪 Running Tests
 
 **Run all tests:**
 
@@ -96,7 +96,7 @@ mvn test
 Unit tests: service and controller layers (with mocks)  
 Integration tests: real Spring context + H2 in-memory database
 
-###🧱 Project Structure
+### 🧱 Project Structure
 
 src/  
  ├── main/  
@@ -109,14 +109,14 @@ src/
  │          ├── application.properties  
  │          └── data.sql (optional test data)  
  └── test/  
-      └── ... (unit and integration tests)
+      └── ... (unit and integration tests)  
       
-🧑‍💻 Author
-Artur Sobczak
-📧 sobczak.artur88@gmail.com
-💼 LinkedIn
+### 🧑‍💻 Author  
+Artur Sobczak  
+📧 sobczak.artur88@gmail.com  
+💼 LinkedIn  
 
-📜 License
+### 📜 License  
 This project is licensed under the MIT License — feel free to use it for learning and development.
  
 <br><br>
