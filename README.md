@@ -45,12 +45,13 @@ allowing you to easily run both the Spring Boot application and a MySQL database
 
 ### 1️⃣ Clone the repository
 
-git clone https://github.com/your-username/teardownapp-v1.git  
+git clone https://github.com/SobczakArtur/teardownappv1.git  
 cd teardownapp-v1
 
 2️⃣ Run with Docker Compose
 
-docker-compose up --build  
+docker-compose up --build
+
 The backend will be available at:  
 👉 http://localhost:8080
 
@@ -69,15 +70,15 @@ POST /api/v1/auth/authenticate
 
 Example request body:
 
-{
-  "username": "artur",
-  "password": "haslo123"
+{  
+  "username": "artur",  
+  "password": "haslo123"  
 }
 
 2. The response will contain a JWT token:
    
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+{  
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."  
 }
 
 4. Use this token in the Authorization header when accessing secured endpoints:
