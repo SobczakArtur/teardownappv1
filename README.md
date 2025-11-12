@@ -50,7 +50,8 @@ cd teardownapp-v1
 
 2️⃣ Run with Docker Compose
 
-docker-compose up --build  
+docker-compose up --build
+
 
 The backend will be available at:  
 👉 http://localhost:8080
@@ -89,7 +90,8 @@ Authorization: Bearer <your_token_here>
 
 **Run all tests:**
 
-mvn test  
+mvn test
+
 
 **Test types:**
 
