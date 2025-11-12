@@ -64,7 +64,7 @@ The application uses **JWT (JSON Web Token)** for authentication and authorizati
 
 ### ▶️ How to log in and get a JWT token
 
-1. **Send a POST request** to the login endpoint:
+1. **Send a POST request to the login endpoint:**
    
 POST /api/v1/auth/authenticate
 
@@ -75,41 +75,40 @@ Example request body:
   "password": "haslo123"  
 }
 
-2. The response will contain a JWT token:
+2. **The response will contain a JWT token:**
    
 {  
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."  
 }
 
-4. Use this token in the Authorization header when accessing secured endpoints:
+3. **Use this token in the Authorization header when accessing secured endpoints:**
 
 Authorization: Bearer <your_token_here>
 
-🧪 Running Tests
+###🧪 Running Tests
 
-Run all tests:
+**Run all tests:**
 
 mvn test
 
-Test types:
+**Test types:**
 
-Unit tests: service and controller layers (with mocks)
-
+Unit tests: service and controller layers (with mocks)  
 Integration tests: real Spring context + H2 in-memory database
 
-🧱 Project Structure
+###🧱 Project Structure
 
-src/
- ├── main/
- │    ├── java/pl/sobczakartur/teardownappv1/
- │    │     ├── auth/                # JWT + security configuration
- │    │     ├── mainelectronics/     # CRUD features (e.g., Substrate)
- │    │     ├── exceptions/          # Global error handling
- │    │     └── TeardownAppV1.java   # Main Spring Boot class
- │    └── resources/
- │          ├── application.properties
- │          └── data.sql (optional test data)
- └── test/
+src/  
+ ├── main/  
+ │    ├── java/pl/sobczakartur/teardownappv1/  
+ │    │     ├── auth/                # JWT + security configuration  
+ │    │     ├── mainelectronics/     # CRUD features (e.g., Substrate)  
+ │    │     ├── exceptions/          # Global error handling  
+ │    │     └── TeardownAppV1.java   # Main Spring Boot class  
+ │    └── resources/  
+ │          ├── application.properties  
+ │          └── data.sql (optional test data)  
+ └── test/  
       └── ... (unit and integration tests)
       
 🧑‍💻 Author
