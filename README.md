@@ -89,7 +89,7 @@ Authorization: Bearer <your_token_here>
 
 **Run all tests:**
 
-mvn test
+mvn test  
 
 **Test types:**
 
@@ -113,8 +113,8 @@ src/
       
 ### 🧑‍💻 Author  
 Artur Sobczak  
-📧 sobczak.artur88@gmail.com  
-💼 LinkedIn  
+📧 e-mail: sobczak.artur88@gmail.com  
+💼 LinkedIn: https://www.linkedin.com/in/artur-sobczak-03724a175/  
 
 ### 📜 License  
 This project is licensed under the MIT License — feel free to use it for learning and development.
