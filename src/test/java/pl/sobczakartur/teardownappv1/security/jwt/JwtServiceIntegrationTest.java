@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class JwtServiceTest {
+public class JwtServiceIntegrationTest {
 
     @Autowired
     private JwtService jwtService;

@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class SubstrateServiceImplTest {
+public class SubstrateServiceImplUnitTest {
 
     @Mock
     private SubstrateRepository substrateRepository;

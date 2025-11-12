@@ -8,7 +8,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @TestConfiguration
 @ActiveProfiles("test")
-public class TestSecurityConfig {
+public class SecurityConfigIntegrationTest {
 
     @Bean
     public SecurityFilterChain testSecurityFilterChain(HttpSecurity http) throws Exception {

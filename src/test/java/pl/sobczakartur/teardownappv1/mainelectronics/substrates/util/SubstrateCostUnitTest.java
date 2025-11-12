@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles("test")
-public class SubstrateCostTest {
+public class SubstrateCostUnitTest {
 
 
     private SubstrateCost substrateCost;

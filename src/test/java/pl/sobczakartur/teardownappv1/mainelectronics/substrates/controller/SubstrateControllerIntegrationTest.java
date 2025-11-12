@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 import pl.sobczakartur.teardownappv1.mainelectronics.substrates.repository.SubstrateRepository;
-import pl.sobczakartur.teardownappv1.security.config.TestSecurityConfig;
+import pl.sobczakartur.teardownappv1.security.config.SecurityConfigIntegrationTest;
 
 import java.util.ArrayList;
 
@@ -28,10 +28,10 @@ import static pl.sobczakartur.teardownappv1.mainelectronics.substrates.enums.Tec
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(TestSecurityConfig.class)
+@Import(SecurityConfigIntegrationTest.class)
 @ActiveProfiles("test")
 @Transactional
-class SubstrateControllerTest {
+class SubstrateControllerIntegrationTest {
 
     private static final String API_BASE_URL = "/api/substrate";
 
@@ -213,7 +213,7 @@ class SubstrateControllerTest {
 //import org.springframework.test.web.servlet.MockMvc;
 //import pl.sobczakartur.teardownappv1.mainelectronics.substrates.entity.Substrate;
 //import pl.sobczakartur.teardownappv1.mainelectronics.substrates.service.SubstrateService;
-//import pl.sobczakartur.teardownappv1.security.config.TestSecurityConfig;
+//import pl.sobczakartur.teardownappv1.security.config.SecurityConfigIntegrationTest;
 //import pl.sobczakartur.teardownappv1.security.jwt.JwtAuthFilter;
 //import pl.sobczakartur.teardownappv1.security.jwt.JwtService;
 //import pl.sobczakartur.teardownappv1.security.user.CustomUserDetailsService;
@@ -231,9 +231,9 @@ class SubstrateControllerTest {
 //
 //@SpringBootTest
 //@AutoConfigureMockMvc
-//@Import({TestSecurityConfig.class})
+//@Import({SecurityConfigIntegrationTest.class})
 //@ActiveProfiles("test")
-//public class SubstrateControllerTest {
+//public class SubstrateControllerIntegrationTest {
 //
 //    private static final String API_BASE_URL = "/api/substrate";
 //
