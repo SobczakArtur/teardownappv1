@@ -45,16 +45,16 @@ allowing you to easily run both the Spring Boot application and a MySQL database
 
 ### 1️⃣ Clone the repository
 
-git clone https://github.com/your-username/teardownapp-v1.git
+git clone https://github.com/your-username/teardownapp-v1.git  
 cd teardownapp-v1
 
 2️⃣ Run with Docker Compose
 
-docker-compose up --build
-The backend will be available at:
+docker-compose up --build  
+The backend will be available at:  
 👉 http://localhost:8080
 
-The MySQL database will be available at:
+The MySQL database will be available at:  
 👉 localhost:3307
 
 ## 🔐 Authentication
