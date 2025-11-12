@@ -47,6 +47,7 @@ allowing you to easily run both the Spring Boot application and a MySQL database
 
 git clone https://github.com/your-username/teardownapp-v1.git
 cd teardownapp-v1
+
 2️⃣ Run with Docker Compose
 
 docker-compose up --build
