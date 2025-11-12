@@ -1,69 +1,117 @@
-# TeardownApp v1
+# 🧱 TeardownApp v1
 
-**TeardownApp** is a backend application that allows management of smartphone components such as manufacturers, technologies, and teardown complexity. The project was developed to strengthen skills in building RESTful APIs using Java and the Spring ecosystem.
-
----
-
-## Technologies & Tools
-
-- **Programming language:** Java 8
-- **Framework:** Spring Boot, Spring Framework
-- **Database:** MySQL
-- **ORM:** Hibernate (JPA)
-- **Testing:** JUnit 5, Mockito, MockMvc
-- **Dependency Management:** Maven
-- **Containerization:** Docker, Docker Compose
-- **Error Handling:** Centralized Exception Handler
-- **IDE:** IntelliJ IDEA
-- **Database GUI:** MySQL Workbench
-- **CLI Tools:** PowerShell
-- **Others:** Lombok, Git, Postman
+Spring Boot CRUD application with JWT authentication and Dockerized MySQL database.
 
 ---
 
-## Features
+## 🚀 About the Project
 
-- Full CRUD functionality for smartphone teardown components
-- One-to-Many and Many-to-One relationships between entities
-- Centralized exception handling with custom error responses
-- Unit tests
-- Dockerized backend and database using Docker Compose
+**TeardownApp v1** is a backend web application built with **Spring Boot**.  
+It demonstrates how to design and implement a complete **CRUD system** with  
+authentication and authorization based on **JWT (JSON Web Token)**.
+
+This project is fully containerized using **Docker** and **Docker Compose**,  
+allowing you to easily run both the Spring Boot application and a MySQL database locally.
 
 ---
 
-## Getting Started
+## 🧩 Features
 
-### Prerequisites
+- 🔐 **JWT Authentication & Authorization**
+- 🧰 **Full CRUD operations** (Create, Read, Update, Delete)
+- 🧱 **MySQL Database** (Dockerized)
+- 🌱 **Spring Data JPA & Hibernate**
+- ⚙️ **Global Exception Handling**
+- 🧪 **Unit & Integration Tests (JUnit + MockMvc + H2)**
+- 🐳 **Docker Compose setup**
+- 🧾 **Layered Architecture (Controller → Service → Repository)**
 
-Make sure you have installed:
+---
 
-- Java 8
-- Maven
-- Docker + Docker Compose
-- MySQL Workbench *(optional, for database GUI access)*
-- PowerShell *(recommended for running Docker commands on Windows)*
+## 🧰 Technologies Used
 
-### Clone the repository
+| Layer | Technology |
+|-------|-------------|
+| Backend | Java 17, Spring Boot |
+| Security | Spring Security, JWT |
+| Database | MySQL, H2 (for tests) |
+| Tools | Docker, Docker Compose |
+| Build Tool | Maven |
+| Testing | JUnit 5, Mockito, MockMvc |
 
-git clone https://github.com/SobczakArtur/teardownappv1.git  
-cd teardownappv1  
+---
 
-### Build the project
+## ⚙️ Getting Started
 
-mvn clean install
+### 1️⃣ Clone the repository
 
-### Run with Docker Compose
+git clone https://github.com/your-username/teardownapp-v1.git
+cd teardownapp-v1
+2️⃣ Run with Docker Compose
 
-docker-compose up --build  
-The application will be available at: http://localhost:8080  
+docker-compose up --build
+The backend will be available at:
+👉 http://localhost:8080
 
-MySQL will be running on: localhost:3306  
-Use MySQL Workbench to connect with the following credentials:
+The MySQL database will be available at:
+👉 localhost:3307
 
-- Host: localhost
-- Port: 3306
-- User: appuser
-- Password: apphaslo123  
+## 🔐 Authentication
+
+The application uses **JWT (JSON Web Token)** for authentication and authorization.
+
+### ▶️ How to log in and get a JWT token
+
+1. **Send a POST request** to the login endpoint:
+POST /api/v1/auth/authenticate
+
+
+Example request body:
+
+{
+  "username": "artur",
+  "password": "haslo123"
+}
+The response will contain a JWT token:
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+}
+Use this token in the Authorization header when accessing secured endpoints:
+
+Authorization: Bearer <your_token_here>
+
+🧪 Running Tests
+Run all tests:
+
+mvn test
+Test types:
+
+Unit tests: service and controller layers (with mocks)
+
+Integration tests: real Spring context + H2 in-memory database
+
+🧱 Project Structure
+
+src/
+ ├── main/
+ │    ├── java/pl/sobczakartur/teardownappv1/
+ │    │     ├── auth/                # JWT + security configuration
+ │    │     ├── mainelectronics/     # CRUD features (e.g., Substrate)
+ │    │     ├── exceptions/          # Global error handling
+ │    │     └── TeardownAppV1.java   # Main Spring Boot class
+ │    └── resources/
+ │          ├── application.properties
+ │          └── data.sql (optional test data)
+ └── test/
+      └── ... (unit and integration tests)
+🧑‍💻 Author
+Artur Sobczak
+📧 sobczak.artur88@gmail.com
+💼 LinkedIn
+
+📜 License
+This project is licensed under the MIT License — feel free to use it for learning and development.
+ 
 <br><br>
 
 ![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(1).JPG?raw=true)
