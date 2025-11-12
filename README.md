@@ -64,8 +64,8 @@ The application uses **JWT (JSON Web Token)** for authentication and authorizati
 ### ▶️ How to log in and get a JWT token
 
 1. **Send a POST request** to the login endpoint:
+   
 POST /api/v1/auth/authenticate
-
 
 Example request body:
 
@@ -73,18 +73,23 @@ Example request body:
   "username": "artur",
   "password": "haslo123"
 }
-The response will contain a JWT token:
+
+2. The response will contain a JWT token:
+   
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
 }
-Use this token in the Authorization header when accessing secured endpoints:
+
+4. Use this token in the Authorization header when accessing secured endpoints:
 
 Authorization: Bearer <your_token_here>
 
 🧪 Running Tests
+
 Run all tests:
 
 mvn test
+
 Test types:
 
 Unit tests: service and controller layers (with mocks)
@@ -105,6 +110,7 @@ src/
  │          └── data.sql (optional test data)
  └── test/
       └── ... (unit and integration tests)
+      
 🧑‍💻 Author
 Artur Sobczak
 📧 sobczak.artur88@gmail.com
