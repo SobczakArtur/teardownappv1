@@ -65,7 +65,7 @@ The application uses **JWT (JSON Web Token)** for authentication and authorizati
 
 ### ▶️ How to log in and get a JWT token
 
-1. **Send a POST request to the login endpoint:**
+1️⃣ **Send a POST request to the login endpoint:**
    
 POST /api/v1/auth/authenticate
 
@@ -76,13 +76,13 @@ Example request body:
   "password": "haslo123"  
 }
 
-2. **The response will contain a JWT token:**
+2️⃣ **The response will contain a JWT token:**
    
 {  
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."  
 }
 
-3. **Use this token in the Authorization header when accessing secured endpoints:**
+3️⃣ **Use this token in the Authorization header when accessing secured endpoints:**
 
 Authorization: Bearer <your_token_here>
 
