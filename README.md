@@ -86,6 +86,14 @@ Example request body:
 
 Authorization: Bearer <your_token_here>
 
+### 🧍 Default user credentials
+
+Role	Username	Password
+Admin	appuser	apphaslo123
+
+💡 These credentials are created manually in the database.
+You can change them anytime in the User table.
+
 ### 🧪 Running Tests
 
 **Run all tests:**
