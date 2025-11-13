@@ -93,7 +93,7 @@ Authorization: Bearer <your_token_here>
 | ROLE_USER | artur | haslo123 |
 
 💡 These credentials are created manually in the database.
-You can change them anytime in the "User" table.
+You can change them anytime in the **User** table.
 
 ### 🧪 Running Tests
 
