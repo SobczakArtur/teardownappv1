@@ -89,6 +89,7 @@ Authorization: Bearer <your_token_here>
 ### 🧍 Default user credentials
 
 | Role | Username | Password |
+|-------|-------|-------|
 | ROLE_USER | artur | haslo123 |
 
 💡 These credentials are created manually in the database.
