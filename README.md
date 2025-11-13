@@ -87,13 +87,9 @@ Example request body:
 Authorization: Bearer <your_token_here>
 
 ### 🧍 Default user credentials
-Role	Username	Password
-Admin	appuser	apphaslo123
 
-### 🧍 Default user credentials
-
-Role	Username	Password
-ROLE_USER	artur	haslo123
+| Role | Username | Password |
+| ROLE_USER | artur | haslo123 |
 
 💡 These credentials are created manually in the database.
 You can change them anytime in the User table.
