@@ -88,14 +88,16 @@ Example request body:
 
 Authorization: Bearer <your_token_here>
 
+💡 In Postman, go to the "Authorization" tab, select "Bearer Token", and paste the token there.
+
 ### 🧍 Default user credentials
 
 | Role | Username | Password |
 |-------|-------|-------|
 | ROLE_USER | artur | haslo123 |
 
-💡 These credentials are created manually in the database.
-You can change them anytime in the **User** table.
+💡 These credentials are automatically inserted into the database via `data.sql` when the application starts.
+You can change them anytime in the `users` table.
 
 ### 🧪 Running Tests
 
