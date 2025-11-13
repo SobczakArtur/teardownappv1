@@ -87,6 +87,10 @@ Example request body:
 Authorization: Bearer <your_token_here>
 
 ### 🧍 Default user credentials
+Role	Username	Password
+Admin	appuser	apphaslo123
+
+### 🧍 Default user credentials
 
 Role	Username	Password
 ROLE_USER	artur	haslo123
@@ -99,7 +103,6 @@ You can change them anytime in the User table.
 **Run all tests:**
 
 mvn test
-
 
 **Test types:**
 
