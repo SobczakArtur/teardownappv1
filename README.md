@@ -65,6 +65,8 @@ The application uses **JWT (JSON Web Token)** for authentication and authorizati
 
 ### ▶️ How to log in and get a JWT token
 
+You can use **Postman** or any HTTP client to test the authentication.
+
 1️⃣ **Send a POST request to the login endpoint:**
    
 POST http://localhost:8080/api/auth/login
