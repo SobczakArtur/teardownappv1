@@ -128,8 +128,12 @@ Artur Sobczak
 📧 e-mail: sobczak.artur88@gmail.com  
 💼 LinkedIn: https://www.linkedin.com/in/artur-sobczak-03724a175/  
 
-### 📜 License  
-This project is licensed under the MIT License — feel free to use it for learning and development.
+## 📝 License
+
+This project is licensed under the **MIT License**.  
+You are free to use, modify and distribute this project for learning and development purposes.
+
+See the full license in the [LICENSE](./LICENSE) file.
  
 <br><br>
 
