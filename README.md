@@ -3,6 +3,42 @@
 TeardownApp‑v1 is a Spring Boot application for managing electronic substrates.  
 This version does not include authentication or authorization, making it simple to run and test.
 
+---
+
+## 🚀 About the Project
+
+**TeardownApp v1** is a backend web application built with **Spring Boot**.  
+It demonstrates how to design and implement a complete **CRUD system**.
+
+This project is fully containerized using **Docker** and **Docker Compose**,  
+allowing you to easily run both the Spring Boot application and a MySQL database locally.
+
+---
+
+## 🧩 Features
+
+- 🧰 **Full CRUD operations** (Create, Read, Update, Delete)
+- 🧱 **MySQL Database** (Dockerized)
+- 🌱 **Spring Data JPA & Hibernate**
+- ⚙️ **Global Exception Handling**
+- 🧪 **Unit & Integration Tests (JUnit + MockMvc + H2)**
+- 🐳 **Docker Compose setup**
+- 🧾 **Layered Architecture (Controller → Service → Repository)**
+
+---
+
+## 🧰 Technologies Used
+
+| Layer | Technology |
+|-------|-------------|
+| Backend | Java 17, Spring Boot |
+| Database | MySQL, H2 (for tests) |
+| Tools | Docker, Docker Compose |
+| Build Tool | Maven |
+| Testing | JUnit 5, Mockito, MockMvc |
+
+---
+
 # ⚙️ Getting Started
 1️⃣ Clone the repository
 
@@ -29,9 +65,13 @@ docker-compose up --build
 Application will be available at:  
 http://localhost:8080
 
+---
+
 # 🗂️ Database
 
 Uses MySQL for data persistence.
+
+---
 
 # 📦 API Endpoints
 
@@ -51,6 +91,8 @@ You can test the endpoints using Postman or any HTTP client.
 
 All endpoints are publicly accessible (no authentication required).
 
+---
+
 # 🧪 Testing
 
 Unit tests are included.
@@ -59,10 +101,14 @@ Run tests with:
 
 ./mvnw test
 
+---
+
 # 📝 License
 
 This project is licensed under the MIT License.
 See the full license in the [LICENSE](./LICENSE) file.
+
+---
 
 <br><br>
 **Example of CRUD operations:**
