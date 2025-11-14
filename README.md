@@ -146,6 +146,8 @@ See the full license in the [LICENSE](./LICENSE) file.
 <br><br>
 ![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(7).JPG?raw=true)
 <br><br>
+![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(8).JPG?raw=true)
+<br><br>
 
 <br><br>
 **Example of CRUD operations:**
