@@ -16,7 +16,7 @@ cd teardownappv1
 
 Or package and run the JAR:  
 
-./mvnw clean package
+./mvnw clean package  
 java -jar target/teardownappv1-0.0.1-SNAPSHOT.jar  
 
 3️⃣ Run with Docker (Optional)
