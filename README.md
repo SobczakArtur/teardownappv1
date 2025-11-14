@@ -49,18 +49,6 @@ You can test the endpoints using Postman or any HTTP client.
 
 ---
 
-| Layer | Technology |
-|-------|-------------|
-| Backend | Java 17, Spring Boot |
-| Security | Spring Security, JWT |
-| Database | MySQL, H2 (for tests) |
-| Tools | Docker, Docker Compose |
-| Build Tool | Maven |
-| Testing | JUnit 5, Mockito, MockMvc |
-
----
-
-
 All endpoints are publicly accessible (no authentication required).
 
 # 🧪 Testing
