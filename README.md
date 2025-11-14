@@ -4,17 +4,20 @@ TeardownApp‑v1 is a Spring Boot application for managing electronic substrates
 This version does not include authentication or authorization, making it simple to run and test.
 
 # ⚙️ Getting Started
-1️⃣ Clone the repository  
+1️⃣ Clone the repository
+
 git clone https://github.com/SobczakArtur/teardownappv1.git  
 cd teardownappv1
 
-2️⃣ Build and run with Maven  
+2️⃣ Build and run with Maven
+
 ./mvnw spring-boot:run
 
 
 Or package and run the JAR:  
 
-./mvnw clean package  
+./mvnw clean package
+
 java -jar target/teardownappv1-0.0.1-SNAPSHOT.jar
 
 3️⃣ Run with Docker (Optional)
