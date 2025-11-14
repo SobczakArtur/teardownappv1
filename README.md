@@ -86,8 +86,6 @@ You can test the endpoints using Postman or any HTTP client.
 | PATCH |	/api/substrate/{id} |	Partially update substrate |
 | DELETE | /api/substrate/{id} |	Delete substrate |
 
----
-
 All endpoints are publicly accessible (no authentication required).
 
 ---
@@ -107,7 +105,6 @@ Run tests with:
 This project is licensed under the MIT License.
 See the full license in the [LICENSE](./LICENSE) file.
 
----
 
 <br><br>
 **Example of CRUD operations:**
