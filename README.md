@@ -33,8 +33,6 @@ http://localhost:8080
 
 Uses MySQL for data persistence.
 
-Schema and initial data are automatically loaded from data.sql.
-
 # 📦 API Endpoints
 
 You can test the endpoints using Postman or any HTTP client.
