@@ -39,7 +39,7 @@ You can test the endpoints using Postman or any HTTP client.
 
 
 **| Method | Endpoint | Description |**
-|-------|-------|-------------|
+|--------|----------|-------------|
 | GET |	/api/substrate |	List all substrates |
 | GET |	/api/substrate/{id} |	Get substrate by ID |
 | POST	| /api/substrate |	Create new substrate |
@@ -61,7 +61,7 @@ Run tests with:
 # 📝 License
 
 This project is licensed under the MIT License.
-See the LICENSE file for details.
+See the full license in the [LICENSE](./LICENSE) file.
 
 <br><br>
 **Example of CRUD operations:**
