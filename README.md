@@ -22,18 +22,18 @@ This project is available in two separate versions, each stored on a different G
 
 1️⃣ **Standard CRUD Version (no authentication)**
 
-The version described in this README
-Branch: master
-All API endpoints are publicly accessible (no login required)
+The version described in this README  
+Branch: master  
+All API endpoints are publicly accessible (no login required)  
 Perfect for learning clean CRUD architecture, testing, and Docker setup
 
 2️⃣ **Version with Authentication & Authorization (JWT)**
 
-Includes a full authentication and authorization system:
-User registration & login
-JWT-based authentication
-Role-based access control (e.g., ROLE_USER, ROLE_ADMIN)
-Branch: Authentication_Authorization
+Includes a full authentication and authorization system:  
+User registration & login  
+JWT-based authentication  
+Role-based access control (e.g., ROLE_USER, ROLE_ADMIN)  
+Branch: Authentication_Authorization  
 More aligned with real-world, production-ready Spring Boot applications
 
 ---
