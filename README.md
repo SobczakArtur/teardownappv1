@@ -1,151 +1,63 @@
-# 🧱 TeardownApp v1
+🔧 TeardownApp‑v1
 
-Spring Boot CRUD application with JWT authentication and Dockerized MySQL database.
+TeardownApp‑v1 is a Spring Boot application for managing electronic substrates.
+This version does not include authentication or authorization, making it simple to run and test.
 
----
+⚙️ Getting Started
+1️⃣ Clone the repository
+git clone https://github.com/SobczakArtur/teardownappv1.git
+cd teardownappv1
 
-## 🚀 About the Project
+2️⃣ Build and run with Maven
+./mvnw spring-boot:run
 
-**TeardownApp v1** is a backend web application built with **Spring Boot**.  
-It demonstrates how to design and implement a complete **CRUD system** with  
-authentication and authorization based on **JWT (JSON Web Token)**.
 
-This project is fully containerized using **Docker** and **Docker Compose**,  
-allowing you to easily run both the Spring Boot application and a MySQL database locally.
+Or package and run the JAR:
 
----
+./mvnw clean package
+java -jar target/teardownappv1-0.0.1-SNAPSHOT.jar
 
-## 🧩 Features
+3️⃣ Run with Docker (Optional)
 
-- 🔐 **JWT Authentication & Authorization**
-- 🧰 **Full CRUD operations** (Create, Read, Update, Delete)
-- 🧱 **MySQL Database** (Dockerized)
-- 🌱 **Spring Data JPA & Hibernate**
-- ⚙️ **Global Exception Handling**
-- 🧪 **Unit & Integration Tests (JUnit + MockMvc + H2)**
-- 🐳 **Docker Compose setup**
-- 🧾 **Layered Architecture (Controller → Service → Repository)**
-
----
-
-## 🧰 Technologies Used
-
-| Layer | Technology |
-|-------|-------------|
-| Backend | Java 17, Spring Boot |
-| Security | Spring Security, JWT |
-| Database | MySQL, H2 (for tests) |
-| Tools | Docker, Docker Compose |
-| Build Tool | Maven |
-| Testing | JUnit 5, Mockito, MockMvc |
-
----
-
-## ⚙️ Getting Started
-
-### 1️⃣ Clone the repository
-
-git clone https://github.com/SobczakArtur/teardownappv1.git  
-cd teardownapp-v1
-
-2️⃣ Run with Docker Compose
+You can run the app along with MySQL using Docker Compose:
 
 docker-compose up --build
 
 
-The backend will be available at:  
-👉 http://localhost:8080
+Application will be available at: http://localhost:8080
 
-The MySQL database will be available at:  
-👉 localhost:3307
+🗂️ Database
 
-## 🔐 Authentication
+Uses MySQL for data persistence.
 
-The application uses **JWT (JSON Web Token)** for authentication and authorization.
+Schema and initial data are automatically loaded from data.sql.
 
-### ▶️ How to log in and get a JWT token
+📦 API Endpoints
 
-You can use **Postman** or any HTTP client to test the authentication.
+You can test the endpoints using Postman or any HTTP client.
 
-1️⃣ **Send a POST request to the login endpoint:**
-   
-POST http://localhost:8080/api/auth/login
+Method	Endpoint	Description
+GET	/api/v1/substrates	List all substrates
+GET	/api/v1/substrates/{id}	Get substrate by ID
+POST	/api/v1/substrates	Create new substrate
+PUT	/api/v1/substrates/{id}	Update substrate
+DELETE	/api/v1/substrates/{id}	Delete substrate
 
-Example request body:
+All endpoints are publicly accessible (no authentication required).
 
-{  
-  "username": "artur",  
-  "password": "haslo123"  
-}
+🧪 Testing
 
-2️⃣ **The response will contain a JWT token:**
-   
-{  
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."  
-}
+Unit and integration tests are included.
 
-3️⃣ **Use this token in the Authorization header when accessing secured endpoints:**
+Run tests with:
 
-Authorization: Bearer <your_token_here>
+./mvnw test
 
-💡 In Postman, go to the "Authorization" tab, select "Bearer Token", and paste the token there.
+📝 License
 
-### 🧍 Default user credentials
-
-| Role | Username | Password |
-|-------|-------|-------|
-| ROLE_USER | artur | haslo123 |
-
-💡 These credentials are automatically inserted into the database via `data.sql` when the application starts.
-You can change them anytime in the `users` table.
-
-### 🧪 Running Tests
-
-**Run all tests:**
-
-mvn test
-
-**Test types:**
-
-Unit tests: service and controller layers (with mocks)  
-Integration tests: real Spring context + H2 in-memory database
-
-### 🧱 Project Structure
-
-src/  
- ├── main/  
- │    ├── java/pl/sobczakartur/teardownappv1/  
- │    │     ├── auth/                # JWT + security configuration  
- │    │     ├── mainelectronics/     # CRUD features (e.g., Substrate)  
- │    │     ├── exceptions/          # Global error handling  
- │    │     └── TeardownAppV1.java   # Main Spring Boot class  
- │    └── resources/  
- │          ├── application.properties  
- │          └── data.sql (optional test data)  
- └── test/  
-      └── ... (unit and integration tests)  
-      
-### 🧑‍💻 Author  
-Artur Sobczak  
-📧 e-mail: sobczak.artur88@gmail.com  
-💼 LinkedIn: https://www.linkedin.com/in/artur-sobczak-03724a175/  
-
-## 📝 License
-
-This project is licensed under the **MIT License**.  
-You are free to use, modify and distribute this project for learning and development purposes.
-
-See the full license in the [LICENSE](./LICENSE) file.
- 
-<br><br>
-**Example of autorization:**
-
-![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(5).JPG?raw=true)
-<br><br>
-![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(6).JPG?raw=true)
-<br><br>
-![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(7).JPG?raw=true)
-<br><br>
+This project is licensed under the MIT License.
+See the LICENSE
+ file for details.
 
 <br><br>
 **Example of CRUD operations:**
