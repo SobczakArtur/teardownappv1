@@ -1,9 +1,9 @@
-🔧 TeardownApp‑v1
+# 🔧 TeardownApp‑v1
 
 TeardownApp‑v1 is a Spring Boot application for managing electronic substrates.
 This version does not include authentication or authorization, making it simple to run and test.
 
-⚙️ Getting Started
+# ⚙️ Getting Started
 1️⃣ Clone the repository
 git clone https://github.com/SobczakArtur/teardownappv1.git
 cd teardownappv1
@@ -26,13 +26,13 @@ docker-compose up --build
 
 Application will be available at: http://localhost:8080
 
-🗂️ Database
+# 🗂️ Database
 
 Uses MySQL for data persistence.
 
 Schema and initial data are automatically loaded from data.sql.
 
-📦 API Endpoints
+# 📦 API Endpoints
 
 You can test the endpoints using Postman or any HTTP client.
 
@@ -45,7 +45,7 @@ DELETE	/api/v1/substrates/{id}	Delete substrate
 
 All endpoints are publicly accessible (no authentication required).
 
-🧪 Testing
+# 🧪 Testing
 
 Unit and integration tests are included.
 
@@ -53,7 +53,7 @@ Run tests with:
 
 ./mvnw test
 
-📝 License
+# 📝 License
 
 This project is licensed under the MIT License.
 See the LICENSE
