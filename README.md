@@ -139,7 +139,8 @@ See the full license in the [LICENSE](./LICENSE) file.
  
 <br><br>
 
-**Example of autorization:**  
+**Example of autorization:**
+
 ![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(5).JPG?raw=true)
 <br><br>
 ![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(6).JPG?raw=true)
@@ -147,7 +148,8 @@ See the full license in the [LICENSE](./LICENSE) file.
 ![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(7).JPG?raw=true)
 <br><br>
 
-**Example of CRUD operations:**  
+**Example of CRUD operations:**
+
 ![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(1).JPG?raw=true)
 <br><br>
 ![](https://github.com/SobczakArtur/teardownappv1/blob/master/images/teardown_app%20(2).JPG?raw=true)
