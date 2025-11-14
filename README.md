@@ -38,17 +38,18 @@ Uses MySQL for data persistence.
 You can test the endpoints using Postman or any HTTP client.
 
 Method	Endpoint	Description
-GET	/api/v1/substrates	List all substrates
-GET	/api/v1/substrates/{id}	Get substrate by ID
-POST	/api/v1/substrates	Create new substrate
-PUT	/api/v1/substrates/{id}	Update substrate
-DELETE	/api/v1/substrates/{id}	Delete substrate
+GET	/api/substrate	List all substrates
+GET	/api/substrate/{id}	Get substrate by ID
+POST	/api/substrate	Create new substrate
+PUT	/api/substrate/{id}	Update substrate
+PATCH	/api/substrate/{id}	Partially update substrate
+DELETE	/api/substrate/{id}	Delete substrate
 
 All endpoints are publicly accessible (no authentication required).
 
 # 🧪 Testing
 
-Unit and integration tests are included.
+Unit tests are included.
 
 Run tests with:
 
