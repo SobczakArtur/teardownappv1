@@ -1,5 +1,7 @@
 # 🔧 TeardownApp‑v1
 
+Spring Boot CRUD application with Dockerized MySQL database.
+
 ---
 
 ## 🚀 About the Project
