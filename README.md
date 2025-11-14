@@ -1,8 +1,5 @@
 # 🔧 TeardownApp‑v1
 
-TeardownApp‑v1 is a Spring Boot application for managing electronic substrates.  
-This version does not include authentication or authorization, making it simple to run and test.
-
 ---
 
 ## 🚀 About the Project
@@ -12,6 +9,8 @@ It demonstrates how to design and implement a complete **CRUD system**.
 
 This project is fully containerized using **Docker** and **Docker Compose**,  
 allowing you to easily run both the Spring Boot application and a MySQL database locally.
+
+This version does not include authentication or authorization, making it simple to run and test.
 
 ---
 
