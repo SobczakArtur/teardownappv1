@@ -30,9 +30,9 @@ This project is available in two separate versions, each stored on a different G
 2️⃣ **Version with Authentication & Authorization (JWT)**
 
 - Includes a full authentication and authorization system:  
-- User registration & login  
-- JWT-based authentication  
-- Role-based access control (e.g., ROLE_USER, ROLE_ADMIN)  
+  - User registration & login  
+  - JWT-based authentication  
+  - Role-based access control (e.g., ROLE_USER, ROLE_ADMIN)  
 - Branch: Authentication_Authorization  
 - More aligned with real-world, production-ready Spring Boot applications
 
