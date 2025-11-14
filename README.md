@@ -39,7 +39,7 @@ You can test the endpoints using Postman or any HTTP client.
 
 
 **| Method | Endpoint | Description |**
-|-------|-------------|
+|-------|-------|-------------|
 | GET |	/api/substrate |	List all substrates |
 | GET |	/api/substrate/{id} |	Get substrate by ID |
 | POST	| /api/substrate |	Create new substrate |
