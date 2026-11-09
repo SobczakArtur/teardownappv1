@@ -16,15 +16,77 @@ Spring Data JPA and MySQL. Fully containerized: the application and the database
 
 ## What does it do?
 
-The domain comes from electronics teardown work. A **substrate** record describes a substrate with its technical
-parameters, and owns a list of **assembly blocks** (functional blocks).
-<!-- TODO: confirm / refine this one-sentence domain description -->
+A **substrate** is described by its technology (e.g. `FOUR_L_C`, which means "4 L C" with core material R4F4),
+complexity and area. The API stores substrates together with their **assembly blocks** (functional blocks such as
+`APP`, `BAS`, `RF` or `POWER`) and **calculates the substrate cost and test cost on the server** from technology,
+complexity and area.
 
-**Main fields of a substrate:** `assemblyName`, `substrateMarking`, `manufacturer`, `technology`, `areaValue`,
-`complexity`, `thickness`, `weight`, and a list of `assemblyBlocks` (each with a `functionalBlock`).
-Some derived values are recalculated on the server when `technology`, `areaValue` or `complexity` change.
+**Required fields:** `assemblyName`, `technology`, `complexity`.
+**Optional fields:** `substrateMarking`, `manufacturer`, `areaValue`, `thickness`, `weight`, `assemblyBlocks`.
 
-<!-- TODO: add one real POST /api/substrate request/response (copy from Postman). -->
+**Calculated by the server** (you do not send them):
+- `technologyDescription`, `technologyCoreMaterial`, `technologyMetalLs`: taken from the chosen `technology`
+- `substrateCost`, `testCost`: calculated from technology, complexity and area (only when `areaValue` is provided)
+- `assemblyName` of every assembly block: copied from the parent substrate
+
+**Allowed enum values**
+- `technology`: `TWO_L_C`, `TWO_L_F`, `TWO_L_FV`, `THREE_L_C`, `THREE_L_F`, `THREE_L_FV`, `FOUR_L_C`, `FOUR_L_B`, `FOUR_L_F`, `FOUR_L_FV`
+- `complexity`: `SIMPLE`, `LOW`, `MEDIUM`, `HIGH`
+- `functionalBlock`: `APP_BAS`, `APP`, `BAS`, `CONN`, `RF`, `POWER`
+
+### Example: `POST /api/substrate`
+
+Request body:
+
+```json
+{
+  "assemblyName": "Sample board A",
+  "substrateMarking": "ABC-123",
+  "manufacturer": "Example Manufacturer",
+  "technology": "FOUR_L_C",
+  "complexity": "MEDIUM",
+  "areaValue": { "areaValue": 12.5 },
+  "thickness": 0.8,
+  "weight": 1.2,
+  "assemblyBlocks": [
+    { "functionalBlock": "APP_BAS" },
+    { "functionalBlock": "POWER" }
+  ]
+}
+```
+
+Response `201 Created` (cost values rounded to two decimals):
+
+```json
+{
+  "substrateId": 1,
+  "assemblyName": "Sample board A",
+  "substrateMarking": "ABC-123",
+  "manufacturer": "Example Manufacturer",
+  "technology": "FOUR_L_C",
+  "technologyDescription": "4 L C",
+  "technologyCoreMaterial": "R4F4",
+  "areaValue": { "areaValue": 12.5 },
+  "technologyMetalLs": 4,
+  "complexity": "MEDIUM",
+  "thickness": 0.8,
+  "weight": 1.2,
+  "substrateCost": 3.06,
+  "testCost": 2.25,
+  "assemblyBlocks": [
+    { "assemblyBlocksId": 1, "assemblyName": "Sample board A", "functionalBlock": "APP_BAS" },
+    { "assemblyBlocksId": 2, "assemblyName": "Sample board A", "functionalBlock": "POWER" }
+  ]
+}
+```
+
+Try it with curl:
+
+```bash
+curl -X POST http://localhost:8080/api/substrate \
+  -H "Content-Type: application/json" \
+  -d '{"assemblyName":"Sample board A","technology":"FOUR_L_C","complexity":"MEDIUM","areaValue":{"areaValue":12.5}}'
+```
 
 ---
 
@@ -32,10 +94,11 @@ Some derived values are recalculated on the server when `technology`, `areaValue
 
 | Topic | Where / what |
 |---|---|
-| **Layered architecture** | Controller â†’ Service (interface + implementation) â†’ Repository, constructor injection |
-| **Data model** | One-to-many relation: `Substrate` â†” `AssemblyBlock`, parent reference kept in sync in the service layer |
+| **Layered architecture** | Controller → Service (interface + implementation) → Repository, constructor injection |
+| **Data model** | One-to-many relation: `Substrate` ↔ `AssemblyBlock`, parent reference kept in sync in the service layer |
 | **PATCH with nested data** | `SubstrateServiceImpl#partiallyUpdatedSubstrate`: updates only the fields that were sent, matches existing assembly blocks by ID and adds new ones |
-| **Validation** | Bean Validation (`@Valid`) on request bodies |
+| **Calculated fields** | `SubstrateCost` utility plus JPA lifecycle callbacks (`@PrePersist` / `@PreUpdate`) calculate technology details and costs before every save |
+| **Validation** | Bean Validation (`@Valid`, `@NotBlank`, `@NotNull`, `@Positive`) on request bodies |
 | **Error handling** | Custom `ResourceNotFoundException` and global exception handling |
 | **Tests** | Unit tests (JUnit 5, Mockito) and integration tests (MockMvc + H2) |
 | **Infrastructure** | `Dockerfile` and `docker-compose.yml` (application + MySQL) |
@@ -105,6 +168,8 @@ Base path: `/api/substrate`
 
 All endpoints on this branch are public. Try them with Postman, curl or any HTTP client.
 
+Note: `PUT` and `PATCH` validate the request body like `POST`, so `assemblyName`, `technology` and `complexity` must be included in every request.
+
 ---
 
 ## Testing
@@ -119,7 +184,7 @@ Unit tests use JUnit 5 and Mockito; integration tests use MockMvc with an in-mem
 
 ## Possible next steps
 
-Ideas I would pick up next: a DTO layer with mappers,
+Ideas I would pick up next: a DTO layer with mappers (including a dedicated `PATCH` request without mandatory fields),
 `@Transactional` on service methods, pagination, and a CI workflow in GitHub Actions.
 
 ---
