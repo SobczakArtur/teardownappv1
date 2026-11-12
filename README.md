@@ -1,14 +1,14 @@
 # TeardownApp v1
 
-REST API for managing **substrate** records and their **assembly blocks**, built with Java 17, Spring Boot,
-Spring Data JPA and MySQL. Fully containerized: the application and the database start with one command.
+REST API for managing **substrate** records and their **assembly blocks**, built with Java 17, Spring Boot 3,
+Spring Data JPA and MySQL. Fully containerized: the application and the database run with Docker Compose.
 
-> **In short:** a layered Spring Boot backend with a one-to-many data model, input validation, global exception
-> handling, partial updates (`PATCH`) that also handle nested records, automated tests and Docker Compose.
-> A second branch adds JWT authentication and role-based access control.
+> **In short:** a layered Spring Boot backend with a one-to-many data model, server-side cost calculation,
+> global exception handling with JSON error responses, partial updates (`PATCH`) that also handle nested records,
+> unit and controller tests, and Docker Compose. A second branch adds user registration, login and JWT authentication.
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-brightgreen)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-brightgreen)
 ![MySQL](https://img.shields.io/badge/MySQL-Docker-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
@@ -21,12 +21,12 @@ complexity and area. The API stores substrates together with their **assembly bl
 `APP`, `BAS`, `RF` or `POWER`) and **calculates the substrate cost and test cost on the server** from technology,
 complexity and area.
 
-**Required fields:** `assemblyName`, `technology`, `complexity`.
-**Optional fields:** `substrateMarking`, `manufacturer`, `areaValue`, `thickness`, `weight`, `assemblyBlocks`.
+**Fields:** `assemblyName`, `substrateMarking`, `manufacturer`, `technology`, `complexity`, `areaValue`,
+`thickness`, `weight`, `assemblyBlocks`. On this branch no field is mandatory.
 
 **Calculated by the server** (you do not send them):
 - `technologyDescription`, `technologyCoreMaterial`, `technologyMetalLs`: taken from the chosen `technology`
-- `substrateCost`, `testCost`: calculated from technology, complexity and area (only when `areaValue` is provided)
+- `substrateCost`, `testCost`: calculated when `technology`, `complexity` and `areaValue` are all provided
 - `assemblyName` of every assembly block: copied from the parent substrate
 
 **Allowed enum values**
@@ -88,21 +88,33 @@ curl -X POST http://localhost:8080/api/substrate \
   -d '{"assemblyName":"Sample board A","technology":"FOUR_L_C","complexity":"MEDIUM","areaValue":{"areaValue":12.5}}'
 ```
 
+### Error response example
+
+`GET /api/substrate/999` for a substrate that does not exist returns `404`:
+
+```json
+{
+  "timestamp": "2026-01-15T10:15:30.123",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Substrate not found with ID: 999"
+}
+```
+
 ---
 
 ## What to look at (for a quick code review)
 
 | Topic | Where / what |
 |---|---|
-| **Layered architecture** | Controller → Service (interface + implementation) → Repository, constructor injection |
-| **Data model** | One-to-many relation: `Substrate` ↔ `AssemblyBlock`, parent reference kept in sync in the service layer |
+| **Layered architecture** | Controller → Service (interface + implementation) → Repository, constructor injection, `@Qualifier` for explicit bean selection |
+| **Data model** | One-to-many relation: `Substrate` ↔ `AssemblyBlocks`, parent reference kept in sync in the service layer |
 | **PATCH with nested data** | `SubstrateServiceImpl#partiallyUpdatedSubstrate`: updates only the fields that were sent, matches existing assembly blocks by ID and adds new ones |
 | **Calculated fields** | `SubstrateCost` utility plus JPA lifecycle callbacks (`@PrePersist` / `@PreUpdate`) calculate technology details and costs before every save |
-| **Validation** | Bean Validation (`@Valid`, `@NotBlank`, `@NotNull`, `@Positive`) on request bodies |
-| **Error handling** | Custom `ResourceNotFoundException` and global exception handling |
-| **Tests** | Unit tests (JUnit 5, Mockito) and integration tests (MockMvc + H2) |
-| **Infrastructure** | `Dockerfile` and `docker-compose.yml` (application + MySQL) |
-| **Authentication** | Separate branch [`Authentication_Authorization`](https://github.com/SobczakArtur/teardownappv1/tree/Authentication_Authorization): Spring Security, JWT, `ROLE_USER` / `ROLE_ADMIN` |
+| **Error handling** | Custom exceptions and a global `@RestControllerAdvice` returning JSON (`timestamp`, `status`, `error`, `message`) |
+| **Tests** | Unit tests for the service layer and the cost calculation (JUnit 5, Mockito) and controller tests (`@WebMvcTest`, MockMvc, mocked service) |
+| **Infrastructure** | `Dockerfile` and `docker-compose.yml` (application + MySQL), configuration through environment variables |
+| **Authentication** | Separate branch [`Authentication_Authorization`](https://github.com/SobczakArtur/teardownappv1/tree/Authentication_Authorization): Spring Security, stateless JWT authentication, BCrypt-hashed passwords (see the section below) |
 
 ---
 
@@ -111,7 +123,7 @@ curl -X POST http://localhost:8080/api/substrate \
 | Version | Branch | Description |
 |---|---|---|
 | **Standard CRUD** (this README) | `master` | All endpoints are public. Simplest way to run and test the API. |
-| **Authentication & Authorization** | [`Authentication_Authorization`](https://github.com/SobczakArtur/teardownappv1/tree/Authentication_Authorization) | Registration, login, JWT and role-based access control. |
+| **Authentication & Authorization** | [`Authentication_Authorization`](https://github.com/SobczakArtur/teardownappv1/tree/Authentication_Authorization) | Registration, login and JWT authentication; all substrate endpoints require a token. |
 
 ---
 
@@ -120,10 +132,11 @@ curl -X POST http://localhost:8080/api/substrate \
 | Area | Technology |
 |---|---|
 | Language | Java 17 |
-| Framework | Spring Boot, Spring Web, Spring Data JPA, Bean Validation |
-| Database | MySQL (runtime), H2 (tests) |
+| Framework | Spring Boot 3.2, Spring Web, Spring Data JPA, Hibernate |
+| Database | MySQL 8 |
 | Build tool | Maven (wrapper included) |
-| Testing | JUnit 5, Mockito, MockMvc |
+| Libraries | Lombok |
+| Testing | JUnit 5, Mockito, MockMvc (`@WebMvcTest`) |
 | Containers | Docker, Docker Compose |
 
 ---
@@ -132,22 +145,39 @@ curl -X POST http://localhost:8080/api/substrate \
 
 ### Option A: Docker (recommended)
 
-Requires Docker and Docker Compose.
+Requires JDK 17 (to build the JAR), Docker and Docker Compose.
 
 ```bash
 git clone https://github.com/SobczakArtur/teardownappv1.git
 cd teardownappv1
+./mvnw clean package -DskipTests
 docker-compose up --build
 ```
 
-The API is available at `http://localhost:8080`. Stop everything with `docker-compose down`.
+The `Dockerfile` copies the JAR from `target/`, so the project has to be built first (on Windows use `mvnw.cmd`).
+The API is available at `http://localhost:8080`. MySQL is exposed on host port `3307`.
+If the application container stops because MySQL has not finished starting yet, run `docker-compose up` again.
+Stop everything with `docker-compose down`.
 
-### Option B: local run with Maven
+### Option B: run the application locally
 
-Requires JDK 17 and a running MySQL instance whose settings match the datasource configuration in
-`src/main/resources`.
+The application reads its datasource settings from environment variables (there are no defaults), so set them first.
+You can start only the database from Docker Compose:
 
 ```bash
+docker-compose up -d mysql-db
+```
+
+Then, in the same terminal (Linux/macOS syntax):
+
+```bash
+export SPRING_DATASOURCE_URL="jdbc:mysql://localhost:3307/teardownlibrary?allowPublicKeyRetrieval=true&useSSL=false"
+export SPRING_DATASOURCE_USERNAME=appuser
+export SPRING_DATASOURCE_PASSWORD=<password from docker-compose.yml>
+export SPRING_JPA_HIBERNATE_DDL_AUTO=update
+export SPRING_JPA_SHOW_SQL=true
+export SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+
 ./mvnw spring-boot:run
 ```
 
@@ -168,7 +198,44 @@ Base path: `/api/substrate`
 
 All endpoints on this branch are public. Try them with Postman, curl or any HTTP client.
 
-Note: `PUT` and `PATCH` validate the request body like `POST`, so `assemblyName`, `technology` and `complexity` must be included in every request.
+---
+
+## Branch `Authentication_Authorization`: JWT authentication
+
+The [`Authentication_Authorization`](https://github.com/SobczakArtur/teardownappv1/tree/Authentication_Authorization)
+branch contains the same API secured with **Spring Security and JWT**.
+
+**What is different from `master`**
+- User registration and login (`POST /api/auth/register`, `POST /api/auth/login`). Passwords are stored hashed with BCrypt.
+- Stateless security: login returns a signed JWT (HS256, valid for 10 hours) and a request filter validates it on every call.
+  Everything except `/api/auth/**` requires a token.
+- Bean Validation is active (`jakarta.validation`): `assemblyName`, `technology` and `complexity` are mandatory,
+  also for `PUT` and `PATCH`.
+- Spring Boot 3.2.5. The JWT secret comes from `jwt.secret` / `JWT_SECRET`, and the datasource settings have local defaults,
+  so the application starts without extra configuration when MySQL runs on port `3307`.
+- Tests: service and cost-calculation unit tests, a JWT service test, and controller integration tests (`@SpringBootTest`,
+  MockMvc, in-memory H2 database in MySQL mode, `test` profile) in which the security filter chain is replaced by a permit-all test configuration.
+
+**Usage**
+
+```bash
+# 1. Register
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"demo","password":"demo123"}'
+
+# 2. Log in (the response is {"token":"<jwt>"})
+curl -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"demo","password":"demo123"}'
+
+# 3. Call the API with the token
+curl http://localhost:8080/api/substrate \
+  -H "Authorization: Bearer <jwt>"
+```
+
+Every registered user gets `ROLE_USER`. Role-restricted endpoints are not implemented yet, and outside local development
+you should set your own `JWT_SECRET`.
 
 ---
 
@@ -178,14 +245,15 @@ Note: `PUT` and `PATCH` validate the request body like `POST`, so `assemblyName`
 ./mvnw test
 ```
 
-Unit tests use JUnit 5 and Mockito; integration tests use MockMvc with an in-memory H2 database.
+- **Service tests** (`SubstrateServiceImplTest`): JUnit 5 and Mockito with a mocked repository.
+- **Cost calculation tests** (`SubstrateCostTest`): expected values for valid input, plus null, zero and negative parameters.
+- **Controller tests** (`SubstrateControllerTest`): `@WebMvcTest` with MockMvc and a mocked service, covering success and not-found cases for every endpoint.
 
 ---
 
 ## Possible next steps
 
-Ideas I would pick up next: a DTO layer with mappers (including a dedicated `PATCH` request without mandatory fields),
-`@Transactional` on service methods, pagination, and a CI workflow in GitHub Actions.
+Ideas I would pick up next: a DTO layer with mappers, `@Transactional` on service methods, integration tests against a real database, pagination, and a CI workflow in GitHub Actions.
 
 ---
 
